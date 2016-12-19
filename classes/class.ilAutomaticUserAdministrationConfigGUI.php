@@ -55,12 +55,12 @@ class ilAutomaticUserAdministrationConfigGUI extends ilPluginConfigGUI
 				switch ($cmd) {
 					case self::CMD_OPEN_ACTIONS:
 						$this->forwardOpenActions();
-					    break;
+						break;
 					case self::CMD_CLOSED_ACTIONS:
 						$this->forwardClosedActions();
-					    break;
+						break;
 					default:
-					    throw new Exception("ilAutomaticUserAdministrationConfigGUI:: Unknown command: ".$cmd);
+						throw new Exception("ilAutomaticUserAdministrationConfigGUI:: Unknown command: ".$cmd);
 				}
 		}
 	}

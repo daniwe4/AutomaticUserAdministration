@@ -1,0 +1,7 @@
+{
+	"autoload" : {
+		"psr-4" : {
+			"CaT\\Plugins\\AutomaticUserAdministration\\" : "../../Customizing/global/plugins/Services/Cron/CronHook/AutomaticUserAdministration/classes"
+		}
+	}
+}

@@ -1,12 +1,12 @@
 <?php
 
-use \CaT\Plugins\ilAutomaticUserAdministrationPlugin\ilActions;
+use \CaT\Plugins\ilAutomaticUserAdministration\ilActions;
 
 require_once(__DIR__."/../vendor/autoload.php");
 include_once("./Services/Repository/classes/class.ilCronHookPlugin.php");
 
 /**
- * Plugin base class. Keeps all information the plugin needs
+ * Plugin to autoadministrate user
  */
 class ilAutomaticUserAdministrationPlugin extends ilCronHookPlugin
 {
@@ -20,17 +20,27 @@ class ilAutomaticUserAdministrationPlugin extends ilCronHookPlugin
 		return "AutomaticUserAdministration";
 	}
 
+	/**
+	 * Get a number of job instance
+	 *
+	 * @return \ilAutomaticUserAdministrationPlugin[]
+	 */
 	public function getCronJobInstances()
 	{
 		require_once $this->getDirectory()."/classes/class.ilAutomaticUserAdministrationPlugin.php";
-		$job = new ilAutomaticUserAdministrationPlugin();
+		$job = new \ilAutomaticUserAdministrationPlugin();
 		return array($job);
 	}
 
+	/**
+	 * Get a single job instance
+	 *
+	 * @return \ilAutomaticUserAdministrationPlugin[]
+	 */
 	public function getCronJobInstance($a_job_id)
 	{
 		require_once $this->getDirectory()."/classes/class.ilAutomaticUserAdministrationPlugin.php";
-		return new ilAutomaticUserAdministrationPlugin();
+		return new \ilAutomaticUserAdministrationPlugin();
 	}
 
 	/**

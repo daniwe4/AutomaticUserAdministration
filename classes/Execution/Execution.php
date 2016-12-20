@@ -7,6 +7,11 @@ class Execution
 	/**
 	 * @var int
 	 */
+	protected $id;
+
+	/**
+	 * @var int
+	 */
 	protected $initiator_id;
 
 	/**
@@ -29,14 +34,36 @@ class Execution
 	 */
 	protected $run_date;
 
-	public function __construct($initiator_id, \ilDateTime $scheduled, \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action, \ilDateTime $run_date = null)
+	public function __construct($id, $initiator_id, \ilDateTime $scheduled, \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action, \ilDateTime $run_date = null)
 	{
+		assert('is_int(id)');
 		assert('is_int($initiator_id)');
 
+		$this->id = $id;
 		$this->initiator_id = $initiator_id;
 		$this->scheduled = $scheduled;
 		$this->action = $action;
 		$this->run_date = $run_date;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return int
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * Get the id of initiator
+	 *
+	 * @return int
+	 */
+	public function getInitatorId()
+	{
+		return $this->initiator_id;
 	}
 
 	/**

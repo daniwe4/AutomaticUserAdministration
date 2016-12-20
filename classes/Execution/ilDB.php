@@ -121,7 +121,13 @@ class ilDB implements DB
 	 */
 	protected function createExecutionFromDB($row)
 	{
-		return new Execution\Execution((int)$row["id"], new \ilDateTime($row["schedule"], IL_CAL_DATE), unseralize($row["action"]), new \ilDateTime($row["run_date"], IL_CAL_DATE), $row["initiator"]);
+		return new Execution\Execution(
+			(int)$row["id"],
+			new \ilDateTime($row["schedule"], IL_CAL_DATE),
+			unseralize($row["action"]),
+			new \ilDateTime($row["run_date"], IL_CAL_DATE),
+			$row["initiator"]
+		);
 	}
 
 	/**

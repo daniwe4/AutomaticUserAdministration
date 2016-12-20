@@ -11,11 +11,11 @@ class ilDB implements DB
 	/**
 	 * @var \ilDB
 	 */
-	protected $gDB;
+	protected $g_db;
 
 	public function __construct(\ilDB $db)
 	{
-		$this->gDB = $db;
+		$this->g_db = $db;
 	}
 
 	/**
@@ -47,7 +47,7 @@ class ilDB implements DB
 						, "initiator" => array('integer', $execution->getInitatorId())
 					);
 
-		$this->gDB->insert(self::TABLE_NAME, $values);
+		$this->g_db->insert(self::TABLE_NAME, $values);
 
 		return $execution;
 	}
@@ -65,7 +65,7 @@ class ilDB implements DB
 						, "initiator" => array('integer', $execution->getInitatorId())
 					);
 
-		$this->gDB->update(self::TABLE_NAME, $values, $where);
+		$this->g_db->update(self::TABLE_NAME, $values, $where);
 	}
 
 	/**
@@ -74,9 +74,9 @@ class ilDB implements DB
 	public function delete($id)
 	{
 		$query = "DELETE FROM ".self::TABLE_NAME."\n"
-				." WHERE id = ".$this->gDB->quote($id, "integer");
+				." WHERE id = ".$this->g_db->quote($id, "integer");
 
-		$this->gDB->manipulate($query);
+		$this->g_db->manipulate($query);
 	}
 
 	/**
@@ -88,10 +88,10 @@ class ilDB implements DB
 				." FROM ".self::TABLE_NAME."\n"
 				." WHERE run_date IS NULL";
 
-		$res = $this->gDB->query($query);
+		$res = $this->g_db->query($query);
 
 		$ret = array();
-		while ($row = $this->gDB->fetchAssoc($res)) {
+		while ($row = $this->g_db->fetchAssoc($res)) {
 			$ret[$row["id"]] = $this->createExecutionFromDB($row);
 		}
 
@@ -107,10 +107,10 @@ class ilDB implements DB
 				." FROM ".self::TABLE_NAME."\n"
 				." WHERE run_date IS NOT NULL";
 
-		$res = $this->gDB->query($query);
+		$res = $this->g_db->query($query);
 
 		$ret = array();
-		while ($row = $this->gDB->fetchAssoc($res)) {
+		while ($row = $this->g_db->fetchAssoc($res)) {
 			$ret[$row["id"]] = $this->createExecutionFromDB($row);
 		}
 
@@ -142,7 +142,7 @@ class ilDB implements DB
 	 */
 	protected function getNextId()
 	{
-		return $this->gDB->nextId(self::TABLE_NAME);
+		return $this->g_db->nextId(self::TABLE_NAME);
 	}
 
 	/**
@@ -152,7 +152,7 @@ class ilDB implements DB
 	 */
 	protected function createTable()
 	{
-		if (!$this->gDB->tableExists(self::TABLE_NAME)) {
+		if (!$this->g_db->tableExists(self::TABLE_NAME)) {
 			$fields = array(
 					"id" => array(
 							'type' 		=> 'integer',
@@ -178,8 +178,8 @@ class ilDB implements DB
 					)
 				);
 
-			$this->gDB->createTable(self::TABLE_NAME, $fields);
-			$this->gDB->createSequence(self::TABLE_NAME);
+			$this->g_db->createTable(self::TABLE_NAME, $fields);
+			$this->g_db->createSequence(self::TABLE_NAME);
 		}
 	}
 }

@@ -32,18 +32,14 @@ class SetUserRoles implements UserAction
 	}
 
 	/**
-	 * Execute the action
-	 *
-	 * @return int[]
+	 * @inheritdoc
 	 */
 	public function run()
 	{
 	}
 
 	/**
-	 * Seralize the collection object values
-	 *
-	 * @return string
+	 * @inheritdoc
 	 */
 	public function serialize()
 	{
@@ -53,11 +49,7 @@ class SetUserRoles implements UserAction
 	}
 
 	/**
-	 * Deserialize the collection object values
-	 *
-	 * @param string 	$data
-	 *
-	 * @return null
+	 * @inheritdoc
 	 */
 	public function deserialize($data)
 	{

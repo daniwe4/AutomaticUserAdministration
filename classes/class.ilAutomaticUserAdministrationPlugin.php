@@ -1,9 +1,8 @@
 <?php
-
-use \CaT\Plugins\ilAutomaticUserAdministration\ilActions;
+use CaT\Plugins\AutomaticUserAdministration\ilActions;
 
 require_once(__DIR__."/../vendor/autoload.php");
-include_once("./Services/Repository/classes/class.ilCronHookPlugin.php");
+include_once("./Services/Cron/classes/class.ilCronHookPlugin.php");
 
 /**
  * Plugin to autoadministrate user

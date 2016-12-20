@@ -1,19 +1,16 @@
 <?php
-
-use \CaT\Plugins\AutomaticUserAdministration\Open;
-use \CaT\Plugins\AutomaticUserAdministration\Closed;
-
 include_once("./Services/Component/classes/class.ilPluginConfigGUI.php");
 
 /**
  * Config gui to define auto admin actions
  *
- * @ilCtrl_Calls ilAutomaticUserAdministrationConfigGUI: ilOpenActionsTableGUI, ilClosedActionsTableGUI
+ * @ilCtrl_Calls ilAutomaticUserAdministrationConfigGUI: ilOpenActionsGUI, ilClosedActionsGUI
  */
 class ilAutomaticUserAdministrationConfigGUI extends ilPluginConfigGUI
 {
 	const CMD_OPEN_ACTIONS = "openActions";
 	const CMD_CLOSED_ACTIONS = "closedActions";
+	const CMD_CONFIGURE = "configure";
 
 	/**
 	 * @var \ilCtrl
@@ -45,14 +42,16 @@ class ilAutomaticUserAdministrationConfigGUI extends ilPluginConfigGUI
 		$next_class = $this->gCtrl->getNextClass();
 
 		switch ($next_class) {
-			case "ilopenactionstablegui":
+			case "ilopenactionsgui":
 				$this->forwardOpenActions();
 				break;
-			case "ilclosedactionstablegui":
+			case "ilclosedactionsgui":
 				$this->forwardClosedActions();
 				break;
 			default:
 				switch ($cmd) {
+					case self::CMD_CONFIGURE:
+						$_GET["cmd"] = "view";
 					case self::CMD_OPEN_ACTIONS:
 						$this->forwardOpenActions();
 						break;
@@ -73,7 +72,8 @@ class ilAutomaticUserAdministrationConfigGUI extends ilPluginConfigGUI
 	protected function forwardOpenActions()
 	{
 		$this->gTabs->activateTab(self::CMD_OPEN_ACTIONS);
-		$gui = new Open\ilOpenActionsTableGUI($this, $this->plugin_object, $this->actions);
+		require_once($this->plugin_object->getDirectory()."/classes/Open/class.ilOpenActionsGUI.php");
+		$gui = new \ilOpenActionsGUI($this, $this->plugin_object, $this->actions);
 		$this->gCtrl->forwardCommand($gui);
 	}
 
@@ -85,7 +85,8 @@ class ilAutomaticUserAdministrationConfigGUI extends ilPluginConfigGUI
 	protected function forwardClosedActions()
 	{
 		$this->gTabs->activateTab(self::CMD_CLOSED_ACTIONS);
-		$gui = new Closed\ilClosedActionsTableGUI($this, $this->plugin_object, $this->actions);
+		require_once($this->plugin_object->getDirectory()."/classes/Closed/class.ilClosedActionsGUI.php");
+		$gui = new \ilClosedActionsGUI($this, $this->plugin_object, $this->actions);
 		$this->gCtrl->forwardCommand($gui);
 	}
 
@@ -98,6 +99,6 @@ class ilAutomaticUserAdministrationConfigGUI extends ilPluginConfigGUI
 		$closed_link = $this->gCtrl->getLinkTarget($this, self::CMD_CLOSED_ACTIONS);
 
 		$this->gTabs->addTab(self::CMD_OPEN_ACTIONS, $this->plugin_object->txt("open_actions"), $open_link);
-		$this->gTabs->addTab(self::CMD_CLOSED_ACTIONS, $this->plugin_object->txt("closes_actions"), $closed_link);
+		$this->gTabs->addTab(self::CMD_CLOSED_ACTIONS, $this->plugin_object->txt("closed_actions"), $closed_link);
 	}
 }

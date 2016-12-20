@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CaT\\Plugins\\AutomaticUserAdministration\\' => array($baseDir . '/../../Customizing/global/plugins/Services/Cron/CronHook/AutomaticUserAdministration/classes'),
+	'CaT\\Plugins\\AutomaticUserAdministration\\' => array($baseDir . '/classes'),
 );

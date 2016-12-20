@@ -2,6 +2,8 @@
 
 namespace CaT\Plugins\AutomaticUserAdministration\Execution;
 
+require_once("Services/Calender/classes/class.ilDateTime.php");
+
 class ilDB implements DB
 {
 	const TABLE_NAME = "aua_exections";
@@ -77,7 +79,18 @@ class ilDB implements DB
 	 */
 	public function getOpenExecutions()
 	{
-		return array();
+		$query = "SELECT id, schedule, action, run_date, initiator\n"
+				." FROM ".self::TABLE_NAME."\n"
+				." WHERE run_date IS NULL";
+
+		$res = $this->gDB->query($query);
+
+		$ret = array();
+		while ($row = $this->gDB->fetchAssoc($res)) {
+			$ret[$row["id"]] = $this->createExecutionFromDB($row);
+		}
+
+		return $ret;
 	}
 
 	/**
@@ -85,7 +98,30 @@ class ilDB implements DB
 	 */
 	public function getClosedExecutions()
 	{
-		return array();
+		$query = "SELECT id, schedule, action, run_date, initiator\n"
+				." FROM ".self::TABLE_NAME."\n"
+				." WHERE run_date IS NOT NULL";
+
+		$res = $this->gDB->query($query);
+
+		$ret = array();
+		while ($row = $this->gDB->fetchAssoc($res)) {
+			$ret[$row["id"]] = $this->createExecutionFromDB($row);
+		}
+
+		return $ret;
+	}
+
+	/**
+	 * Get an executon object from dbr esult row
+	 *
+	 * @param string[] 		$row
+	 *
+	 * @return \CaT\Plugins\AutomaticUserAdministration\Execution\Execution
+	 */
+	protected function createExecutionFromDB($row)
+	{
+		return new Execution\Execution((int)$row["id"], new \ilDateTime($row["schedule"], IL_CAL_DATE), unseralize($row["action"]), new \ilDateTime($row["run_date"], IL_CAL_DATE), $row["initiator"]);
 	}
 
 	/**

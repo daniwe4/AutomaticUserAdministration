@@ -4,6 +4,8 @@ namespace CaT\Plugins\AutomaticUserAdministration\Execution;
 
 class ilDB implements DB
 {
+	const TABLE_NAME = "aua_exections";
+
 	/**
 	 * @var \ilDB
 	 */
@@ -45,5 +47,34 @@ class ilDB implements DB
 	 */
 	protected function createTable()
 	{
+		if (!$this->gDB->tableExists(self::TABLE_NAME)) {
+			$fields = array(
+					"id" => array(
+							'type' 		=> 'integer',
+							'length' 	=> 4,
+							'notnull' 	=> true
+					),
+					"schedule" => array(
+							'type' 		=> 'timestamp',
+							'notnull' 	=> true
+					),
+					"action" => array(
+							'type' 		=> 'clob',
+							'notnull' 	=> true
+					),
+					"run_date" => array(
+							'type' 		=> 'timestamp',
+							'notnull' 	=> true
+					),
+					"initiator" => array(
+							'type' 		=> 'integer',
+							'length' 	=> 4,
+							'notnull' 	=> true
+					)
+				);
+
+			$this->gDB->createTable(self::TABLE_NAME, $fields);
+			$this->gDB->createSequence(self::TABLE_NAME);
+		}
 	}
 }

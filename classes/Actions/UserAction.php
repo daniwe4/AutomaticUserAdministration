@@ -5,7 +5,7 @@ namespace CaT\Plugins\AutomaticUserAdministration\Actions;
 /**
  * Interface for user actions
  */
-interface UserAction extends Serializable
+interface UserAction extends \Serializable
 {
 	/**
 	 * Execute the action

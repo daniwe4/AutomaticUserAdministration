@@ -24,6 +24,14 @@ class SetUserRoles implements UserAction
 	}
 
 	/**
+	 * @inheritdoc
+	 */
+	public function getId()
+	{
+		return "set_user_role";
+	}
+
+	/**
 	 * Execute the action
 	 *
 	 * @return int[]

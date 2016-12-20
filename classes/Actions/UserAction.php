@@ -8,6 +8,13 @@ namespace CaT\Plugins\AutomaticUserAdministration\Actions;
 interface UserAction extends \Serializable
 {
 	/**
+	 * get the name of action
+	 *
+	 * @return string
+	 */
+	public function getId();
+
+	/**
 	 * Execute the action
 	 *
 	 * @return int[]

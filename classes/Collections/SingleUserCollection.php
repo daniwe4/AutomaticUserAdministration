@@ -9,10 +9,14 @@ class SingleUserCollection implements UserCollection
 	 */
 	protected $user_id;
 
+	public function __construct($user_id)
+	{
+		assert('is_int($user_id)');
+		$this->user_id = $user_id;
+	}
+
 	/**
-	 * Get all user from collection
-	 *
-	 * @return int[]
+	 * @inheritdoc
 	 */
 	public function getUsers()
 	{
@@ -20,9 +24,7 @@ class SingleUserCollection implements UserCollection
 	}
 
 	/**
-	 * Seralize the collection object values
-	 *
-	 * @return string
+	 * @inheritdoc
 	 */
 	public function serialize()
 	{
@@ -30,9 +32,7 @@ class SingleUserCollection implements UserCollection
 	}
 
 	/**
-	 * Deserialize the collection object values
-	 *
-	 * @return null
+	 * @inheritdoc
 	 */
 	public function deserialize($data)
 	{

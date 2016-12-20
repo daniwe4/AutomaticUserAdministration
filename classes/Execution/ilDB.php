@@ -29,8 +29,13 @@ class ilDB implements DB
 	/**
 	 * @inheritdoc
 	 */
-	public function create($initiator_id, \ilDateTime $scheduled, \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action, \ilDateTime $run_date)
-	{
+	public function create(
+		$initiator_id,
+		\ilDateTime $scheduled,
+		\CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action,
+		\ilDateTime $run_date
+	) {
+
 		$next_id = $this->getNextId();
 
 		$execution = new Execution\Execution($next_id, $initiator_id, $scheduled, $action, $run_date);

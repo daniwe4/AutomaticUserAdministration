@@ -2,11 +2,11 @@
 
 namespace CaT\Plugins\AutomaticUserAdministration\Execution;
 
-require_once("Services/Calender/classes/class.ilDateTime.php");
+require_once('./Services/Calendar/classes/class.ilDateTime.php');
 
 class ilDB implements DB
 {
-	const TABLE_NAME = "aua_exections";
+	const TABLE_NAME = "aua_executions";
 
 	/**
 	 * @var \ilDB
@@ -38,13 +38,15 @@ class ilDB implements DB
 
 		$next_id = $this->getNextId();
 
-		$execution = new Execution\Execution($next_id, $initiator_id, $scheduled, $action, $run_date);
+		$execution = new Execution\Execution($next_id, $initiator_id, $inducement, $scheduled, $action, $run_date);
 
 		$values = array("id" => array('integer', $execution->getId())
 						, "schedule" => array('text', $execution->getScheduled())
 						, "action" => array('text', serialize($execution->getAction()))
 						, "run_date" => array('text', $execution->getRunDate())
 						, "initiator" => array('integer', $execution->getInitatorId())
+						, "inducement" => array('string', $execution->getInducement())
+						, "last_edit" => array('text', date("Y-m-d"))
 					);
 
 		$this->g_db->insert(self::TABLE_NAME, $values);
@@ -63,6 +65,8 @@ class ilDB implements DB
 						, "action" => array('text', serialize($execution->getAction()))
 						, "run_date" => array('text', $execution->getRunDate())
 						, "initiator" => array('integer', $execution->getInitatorId())
+						, "inducement" => array('string', $execution->getInducement())
+						, "last_edit" => array('text', date("Y-m-d"))
 					);
 
 		$this->g_db->update(self::TABLE_NAME, $values, $where);
@@ -84,7 +88,7 @@ class ilDB implements DB
 	 */
 	public function getOpenExecutions()
 	{
-		$query = "SELECT id, schedule, action, run_date, initiator\n"
+		$query = "SELECT id, schedule, action, run_date, initiator, inducement\n"
 				." FROM ".self::TABLE_NAME."\n"
 				." WHERE run_date IS NULL";
 
@@ -103,7 +107,7 @@ class ilDB implements DB
 	 */
 	public function getClosedExecutions()
 	{
-		$query = "SELECT id, schedule, action, run_date, initiator\n"
+		$query = "SELECT id, schedule, action, run_date, initiator, inducement\n"
 				." FROM ".self::TABLE_NAME."\n"
 				." WHERE run_date IS NOT NULL";
 
@@ -128,10 +132,11 @@ class ilDB implements DB
 	{
 		return new Execution\Execution(
 			(int)$row["id"],
+			(int)$row["initiator"],
+			$row["inducement"],
 			new \ilDateTime($row["schedule"], IL_CAL_DATE),
 			unseralize($row["action"]),
-			new \ilDateTime($row["run_date"], IL_CAL_DATE),
-			$row["initiator"]
+			new \ilDateTime($row["run_date"], IL_CAL_DATE)
 		);
 	}
 
@@ -175,11 +180,21 @@ class ilDB implements DB
 							'type' 		=> 'integer',
 							'length' 	=> 4,
 							'notnull' 	=> true
-					)
+					),
+					"inducement" => array(
+							'type' 		=> 'text',
+							'length'	=> '255',
+							'notnull'	=> true
+					),
+					"last_edit" => array(
+							'type' 		=> 'timestamp',
+							'notnull' 	=> true
+					),
 				);
 
 			$this->g_db->createTable(self::TABLE_NAME, $fields);
 			$this->g_db->createSequence(self::TABLE_NAME);
+			$this->g_db->addPrimaryKey(self::TABLE_NAME, array("id"));
 		}
 	}
 }

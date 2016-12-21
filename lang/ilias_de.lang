@@ -3,7 +3,7 @@ description#:#Benutzer werden zu einem bestimmten Zeitpunkt Rollen zugewiesen od
 open_actions#:#Geplante Aktionen
 closed_actions#:#Durchgeführte Aktionen
 scheduled#:#Datum / Uhrzeit
-action#:#Aktion
+inducement#:#Anlass
 login#:#Benutzername
 firstname#:#Vorname
 lastname#:#Nachname

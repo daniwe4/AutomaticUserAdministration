@@ -15,6 +15,11 @@ class Execution
 	protected $initiator_id;
 
 	/**
+	 * @var string
+	 */
+	protected $inducement;
+
+	/**
 	 * @var \ilObjUser | null
 	 */
 	protected $user;
@@ -37,15 +42,18 @@ class Execution
 	public function __construct(
 		$id,
 		$initiator_id,
+		$inducement,
 		\ilDateTime $scheduled,
 		\CaT\Plugin\AutomaticUserAdministration\Actions\Action $action,
 		\ilDateTime $run_date = null
 	) {
 		assert('is_int(id)');
 		assert('is_int($initiator_id)');
+		assert('is_string($inducement)');
 
 		$this->id = $id;
 		$this->initiator_id = $initiator_id;
+		$this->inducement = $inducement;
 		$this->scheduled = $scheduled;
 		$this->action = $action;
 		$this->run_date = $run_date;
@@ -86,6 +94,16 @@ class Execution
 	}
 
 	/**
+	 * Get the inducement
+	 *
+	 * @return string
+	 */
+	public function getInducement()
+	{
+		return $this->inducement;
+	}
+
+	/**
 	 * Get scheduled
 	 *
 	 * @return \ilDateTime
@@ -118,9 +136,9 @@ class Execution
 	/**
 	 * Get new instance with initiator
 	 *
-	 * @param type $initiator_id
+	 * @param int 		$initiator_id
 	 *
-	 * @return type
+	 * @return Execution\Executio
 	 */
 	public function withInitiator($initiator_id)
 	{
@@ -132,9 +150,24 @@ class Execution
 	}
 
 	/**
+	 * Get new instance with inducement
+	 *
+	 * @param string 	$inducement
+	 *
+	 * @return Execution\Execution
+	 */
+	public function withInducement($inducement)
+	{
+		assert('is_string($inducement)');
+		$clone = clone $this;
+		$clone->inducement = $inducement;
+		return $clone;
+	}
+
+	/**
 	 * Get new instance with action
 	 *
-	 * @param \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action
+	 * @param \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction 	$action
 	 *
 	 * @return Execution\Execution
 	 */

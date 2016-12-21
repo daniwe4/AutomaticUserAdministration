@@ -16,7 +16,7 @@ interface DB
 	 *
 	 * @return \CaT\Plugins\AutomaticUserAdministration\Execution\Execution
 	 */
-	public function create($initiator_id, \ilDateTime $scheduled, \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action, \ilDateTime $run_date);
+	public function create($initiator_id, $inducement, \ilDateTime $scheduled, \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action, \ilDateTime $run_date);
 
 	/**
 	 * Update existing execution

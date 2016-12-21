@@ -23,3 +23,4 @@ save_success#:#Die Aktion wurde erfolgreich hinzugefügt.
 update_success#:#Die Aktion wurde erfolgreich aktualisiert.
 delete_success#:#Die Aktion wurde erfolgreich entfernt.
 name#:#Name
+manage_executions#:#Rollenzuweisung

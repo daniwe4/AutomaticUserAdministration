@@ -52,6 +52,7 @@ class ilAutomaticUserAdministrationConfigGUI extends ilPluginConfigGUI
 				switch ($cmd) {
 					case self::CMD_CONFIGURE:
 						$_GET["cmd"] = "view";
+						// switch to cmd "view" to avoid function duplicates
 					case self::CMD_OPEN_ACTIONS:
 						$this->forwardOpenActions();
 						break;
@@ -72,8 +73,8 @@ class ilAutomaticUserAdministrationConfigGUI extends ilPluginConfigGUI
 	protected function forwardOpenActions()
 	{
 		$this->gTabs->activateTab(self::CMD_OPEN_ACTIONS);
-		require_once($this->plugin_object->getDirectory()."/classes/Open/class.ilOpenActionsGUI.php");
-		$gui = new \ilOpenActionsGUI($this, $this->plugin_object, $this->actions);
+		require_once($this->plugin_object->getDirectory()."/classes/Execution/class.ilOpenExecutionsGUI.php");
+		$gui = new \ilOpenExecutionsGUI($this, $this->plugin_object, $this->actions);
 		$this->gCtrl->forwardCommand($gui);
 	}
 

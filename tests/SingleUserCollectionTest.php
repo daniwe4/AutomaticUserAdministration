@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class SingleUserCollectionTest extends TestCase
 {
-	public function test_serialize()
+	public function testSerialize()
 	{
 		$collection = new SingleUserCollection(10);
 		$this->assertEquals(array(10), $collection->getUsers());
@@ -19,7 +19,7 @@ class SingleUserCollectionTest extends TestCase
 	/**
 	 * @depends test_serialize
 	 */
-	public function test_unseralize($args)
+	public function testUnseralize($args)
 	{
 		$collection = $args[1];
 		$unserialized_collection = unserialize($args[0]);

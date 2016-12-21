@@ -19,7 +19,7 @@ class SetUserRoleTest extends TestCase
 		$this->roles = array(2,3,4,5);
 	}
 
-	public function test_serialize()
+	public function testSerialize()
 	{
 		$action = new SetUserRoles($this->user_collection, $this->roles);
 		$serialized_action = serialize($action);
@@ -32,7 +32,7 @@ class SetUserRoleTest extends TestCase
 	/**
 	 * @depends test_serialize
 	 */
-	public function test_unseralize($args)
+	public function testUnseralize($args)
 	{
 		$action = $args[1];
 		$unserialized_action = unserialize($args[0]);

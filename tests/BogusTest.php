@@ -6,14 +6,14 @@
 class BogusTest extends PHPUnit_Framework_TestCase
 {
 
-	public function test_successfull()
+	public function testSuccessfull()
 	{
 		$test_var = "Peter";
 
 		$this->assertEquals("Peter", $test_var);
 	}
 
-	public function test_failed()
+	public function testFailed()
 	{
 		try {
 			$this->checkValue("Bernd");

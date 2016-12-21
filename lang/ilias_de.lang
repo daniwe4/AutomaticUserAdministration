@@ -22,3 +22,4 @@ confirm_delete_execution#:#Sind Sie sich sicher, dass Sie diese Aktion entfernen
 save_success#:#Die Aktion wurde erfolgreich hinzugefügt.
 update_success#:#Die Aktion wurde erfolgreich aktualisiert.
 delete_success#:#Die Aktion wurde erfolgreich entfernt.
+name#:#Name

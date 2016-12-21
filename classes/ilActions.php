@@ -58,7 +58,7 @@ class ilActions
 		\ilDateTime $scheduled,
 		\CaT\Plugins\AutomaticUserAdministration\Actions\Action $action
 	) {
-		$execution = $this->execution_db->getExecution($execution_id);
+		$execution = $this->getExecutionById($execution_id);
 		$execution = $execution->withInitiator($initiator_id)
 							   ->withInducement($inducement)
 							   ->withAction($action)
@@ -68,15 +68,35 @@ class ilActions
 	}
 
 	/**
+	 * Delete execution
+	 *
+	 * @param int 		$execution_id
+	 */
+	public function deleteExecutionById($execution_id)
+	{
+		$this->execution_db->delete($execution_id);
+	}
+
+	/**
+	 * Get execution
+	 *
+	 * @param int 		$execution_id
+	 */
+	public function getExecutionById($execution_id)
+	{
+		return $this->execution_db->getExecution($execution_id);
+	}
+
+	/**
 	 * Get form values for executen
 	 *
-	 * @param type $id
+	 * @param int 		$execution_id
 	 *
 	 * @return array<string, mixed>
 	 */
-	public function getExecutionValues($id)
+	public function getExecutionValues($execution_id)
 	{
-		$execution = $this->execution_db->getExecution($id);
+		$execution = $this->getExecutionById($execution_id);
 
 		$users = $execution->getAction()->getUserCollection()->getUsers();
 		$user = new \ilObjUser($users[0]);
@@ -143,5 +163,22 @@ class ilActions
 		$closed_actions = $this->execution_db->getClosedExecutions($order_column, $order_direction);
 
 		return $closed_actions;
+	}
+
+	/**
+	 * Get names for role ids
+	 *
+	 * @param int[]
+	 *
+	 * @return string[]
+	 */
+	public function getNameForRoles(array $roles)
+	{
+		$ret = array();
+		foreach ($roles as $role_id) {
+			$ret[] = \ilObject::_lookupTitle($role_id);
+		}
+
+		return $ret;
 	}
 }

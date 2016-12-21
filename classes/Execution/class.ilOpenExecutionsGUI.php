@@ -90,7 +90,7 @@ class ilOpenExecutionsGUI
 	protected function view()
 	{
 		$this->setToolbar();
-		$table = new Execution\ilOpenExecutionsTableGUI($this, $this->plugin_object);
+		$table = new Execution\ilOpenExecutionsTableGUI($this, $this->plugin_object, $this->actions);
 		$table->determineOffsetAndOrder();
 		$table->setData($this->actions->getOpenExecutions($table->getOrderField(), $table->getOrderDirection()));
 		$this->gTpl->setContent($table->getHtml());
@@ -209,11 +209,23 @@ class ilOpenExecutionsGUI
 		$confirmation->setCancel($this->txt("cancel"), self::CMD_VIEW);
 		$confirmation->setConfirm($this->txt("delete"), self::CMD_DELETE_EXECUTION);
 
-		$action_id = $this->getExecutionId();
-		// $action = $this->actions->getExecutionById($action_id);
-		// $confirmation->addItem()
+		$execution_id = $this->getExecutionId();
+		$execution = $this->actions->getExecutionById($execution_id);
 
-		$confirmation->addHiddenItem("id", $action_id);
+		$initiator = $execution->getInitator();
+		$users = $execution->getAction()->getUserCollection()->getUsers();
+		$roles = $execution->getAction()->getRoles();
+		$role_names = $this->actions->getNameForRoles($roles);
+		$user = new \ilObjUser($users[0]);
+
+		$confirmation->addItem('', "", $this->txt("scheduled").": ".$execution->getScheduled()->get(IL_CAL_FKT_DATE, "d.m.Y H:i:s"));
+		$confirmation->addItem('', "", $this->txt("inducement").": ".$execution->getInducement());
+		$confirmation->addItem('', "", $this->txt("login").": ".$user->getLogin());
+		$confirmation->addItem('', "", $this->txt("name").": ".$user->getLastname().", ".$user->getFirstname());
+		$confirmation->addItem('', "", $this->txt("roles").": ".implode($role_names));
+		$confirmation->addItem('', "", $this->txt("initiator").": ".$initiator->getLogin());
+
+		$confirmation->addHiddenItem("id", $execution_id);
 		$this->gTpl->setContent($confirmation->getHTML());
 	}
 
@@ -224,8 +236,8 @@ class ilOpenExecutionsGUI
 	 */
 	protected function deleteExecution()
 	{
-		$action_id = $this->getExecutionId();
-		// $this->actions->deleteExecutionById($action_id);
+		$execution_id = $this->getExecutionId();
+		$this->actions->deleteExecutionById($execution_id);
 
 		\ilUtil::sendSuccess($this->txt("delete_success"), true);
 		$this->gCtrl->redirect($this);

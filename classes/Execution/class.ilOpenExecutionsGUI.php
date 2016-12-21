@@ -47,11 +47,12 @@ class ilOpenExecutionsGUI
 
 	public function __construct(\ilAutomaticUserAdministrationConfigGUI $parent_object, \ilAutomaticUserAdministrationPlugin $plugin_object, \CaT\Plugins\AutomaticUserAdministration\ilActions $actions)
 	{
-		global $ilCtrl, $tpl, $ilToolbar;
+		global $ilCtrl, $tpl, $ilToolbar, $ilUser;
 
 		$this->gCtrl = $ilCtrl;
 		$this->gTpl = $tpl;
 		$this->gToolbar = $ilToolbar;
+		$this->g_user = $ilUser;
 
 		$this->parent_object = $parent_object;
 		$this->plugin_object = $plugin_object;
@@ -148,7 +149,16 @@ class ilOpenExecutionsGUI
 			return;
 		}
 
+		$post = $_POST;
+		$initiator_id = (int)$this->g_user->getId();
+		$inducement = $post[ilActions::F_INDUCEMENT];
 
+		$scheduled_post = $post[ilActions::F_SCHEDULED];
+		$scheduled = new \ilDateTime($scheduled_post["date"]." ".$scheduled_post["time"], IL_CAL_DATETIME);
+
+		$action = $this->actions->getRoleAssignAction($post[ilActions::F_LOGIN], $post[ilActions::F_ROLES]);
+
+		$this->actions->createExecution($initiator_id, $inducement, $scheduled, $action);
 
 		\ilUtil::sendSuccess($this->txt("save_success"), true);
 		$this->gCtrl->redirect($this);

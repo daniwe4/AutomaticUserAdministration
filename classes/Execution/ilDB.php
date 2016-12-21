@@ -46,7 +46,7 @@ class ilDB implements DB
 		}
 
 		$values = array("id" => array('integer', $execution->getId())
-						, "schedule" => array('text', $execution->getScheduled()->get(IL_CAL_DATETIME))
+						, "scheduled" => array('text', $execution->getScheduled()->get(IL_CAL_DATETIME))
 						, "action" => array('text', serialize($execution->getAction()))
 						, "run_date" => array('text', $run_date)
 						, "initiator" => array('integer', $execution->getInitatorId())
@@ -71,7 +71,7 @@ class ilDB implements DB
 			$run_date = $execution->getRunDate()->get(IL_CAL_DATETIME);
 		}
 
-		$values = array("schedule" => array('text', $execution->getScheduled()->get(IL_CAL_DATETIME))
+		$values = array("scheduled" => array('text', $execution->getScheduled()->get(IL_CAL_DATETIME))
 						, "action" => array('text', serialize($execution->getAction()))
 						, "run_date" => array('text', $run_date)
 						, "initiator" => array('integer', $execution->getInitatorId())
@@ -96,11 +96,15 @@ class ilDB implements DB
 	/**
 	 * @inheritdoc
 	 */
-	public function getOpenExecutions()
+	public function getOpenExecutions($order_column, $order_direction)
 	{
-		$query = "SELECT id, schedule, action, run_date, initiator, inducement\n"
+		$query = "SELECT id, scheduled, action, run_date, initiator, inducement\n"
 				." FROM ".self::TABLE_NAME."\n"
 				." WHERE run_date IS NULL";
+
+		if ($order_column && $order_column != "") {
+			$query .= " ORDER BY ".$order_column." ".$order_direction;
+		}
 
 		$res = $this->g_db->query($query);
 
@@ -115,11 +119,15 @@ class ilDB implements DB
 	/**
 	 * @inheritdoc
 	 */
-	public function getClosedExecutions()
+	public function getClosedExecutions($order_column, $order_direction)
 	{
-		$query = "SELECT id, schedule, action, run_date, initiator, inducement\n"
+		$query = "SELECT id, scheduled, action, run_date, initiator, inducement\n"
 				." FROM ".self::TABLE_NAME."\n"
 				." WHERE run_date IS NOT NULL";
+
+		if ($order_column && $order_column != "") {
+			$query .= " ORDER BY ".$order_column." ".$order_direction;
+		}
 
 		$res = $this->g_db->query($query);
 
@@ -144,7 +152,7 @@ class ilDB implements DB
 			(int)$row["id"],
 			(int)$row["initiator"],
 			$row["inducement"],
-			new \ilDateTime($row["schedule"], IL_CAL_DATE),
+			new \ilDateTime($row["scheduled"], IL_CAL_DATE),
 			unserialize($row["action"]),
 			new \ilDateTime($row["run_date"], IL_CAL_DATE)
 		);
@@ -174,7 +182,7 @@ class ilDB implements DB
 							'length' 	=> 4,
 							'notnull' 	=> true
 					),
-					"schedule" => array(
+					"scheduled" => array(
 							'type' 		=> 'timestamp',
 							'notnull' 	=> true
 					),

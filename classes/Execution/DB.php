@@ -44,14 +44,20 @@ interface DB
 	/**
 	 * Get all open executions
 	 *
+	 * @param string 	$order_column
+	 * @param string 	$order_sirection
+	 *
 	 * @return CaT\Plugins\AutomaticUserAdministration\Execution\Execution[]
 	 */
-	public function getOpenExecutions();
+	public function getOpenExecutions($order_column, $order_direction);
 
 	/**
 	 * Get all closed executions
 	 *
+	 * @param string 	$order_column
+	 * @param string 	$order_sirection
+	 *
 	 * @return CaT\Plugins\AutomaticUserAdministration\Execution\Execution[]
 	 */
-	public function getClosedExecutions();
+	public function getClosedExecutions($order_column, $order_direction);
 }

@@ -91,7 +91,8 @@ class ilOpenExecutionsGUI
 	{
 		$this->setToolbar();
 		$table = new Execution\ilOpenExecutionsTableGUI($this, $this->plugin_object);
-		$table->setData($this->actions->getOpenExecutions());
+		$table->determineOffsetAndOrder();
+		$table->setData($this->actions->getOpenExecutions($table->getOrderField(), $table->getOrderDirection()));
 		$this->gTpl->setContent($table->getHtml());
 	}
 

@@ -55,11 +55,14 @@ class ilActions
 	/**
 	 * Get all openen executens
 	 *
+	 * @param string 	$order_column
+	 * @param string 	$order_sirection
+	 *
 	 * @return AutomaticUserAdministration\Execution\Execution[]
 	 */
-	public function getOpenExecutions()
+	public function getOpenExecutions($order_column, $order_direction)
 	{
-		$open_actions = $this->execution_db->getOpenExecutions();
+		$open_actions = $this->execution_db->getOpenExecutions($order_column, $order_direction);
 
 		return $open_actions;
 	}
@@ -67,11 +70,14 @@ class ilActions
 	/**
 	 * Get all openen executens
 	 *
+	 * @param string 	$order_column
+	 * @param string 	$order_sirection
+	 *
 	 * @return AutomaticUserAdministration\Execution\Execution[]
 	 */
-	public function getClosedExecutions()
+	public function getClosedExecutions($order_column, $order_direction)
 	{
-		$closed_actions = $this->execution_db->getClosedExecutions();
+		$closed_actions = $this->execution_db->getClosedExecutions($order_column, $order_direction);
 
 		return $closed_actions;
 	}

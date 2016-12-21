@@ -63,8 +63,9 @@ class ilClosedExecutionsGUI
 	 */
 	protected function closedExecutions()
 	{
-		$table = new Execution\ilClosedExecutionsTableGUI($this, $this->plugin_object);
-		$table->setData($this->actions->getClosedExecutions());
+		$table = new Execution\ilClosedExecutionsTableGUI($this, $this->plugin_object, $this->actions);
+		$table->determineOffsetAndOrder();
+		$table->setData($this->actions->getClosedExecutions($table->getOrderField(), $table->getOrderDirection()));
 		$this->gTpl->setContent($table->getHtml());
 	}
 }

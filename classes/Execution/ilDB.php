@@ -31,6 +31,7 @@ class ilDB implements DB
 	 */
 	public function create(
 		$initiator_id,
+		$inducement,
 		\ilDateTime $scheduled,
 		\CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action,
 		\ilDateTime $run_date

@@ -6,14 +6,14 @@ use \CaT\Plugins\AutomaticUserAdministration\ilActions;
 class ilOpenActionsGUI
 {
 	const CMD_VIEW = "view";
-	const CMD_OPEN_ACTIONS = "openActions";
-	const CMD_NEW_ACTION = "newAction";
-	const CMD_EDIT_ACTION = "editAction";
-	const CMD_DELETE_ACTION = "deleteAction";
-	const CMD_DELETE_ACTION_CONFIRM = "deleteActionConfirm";
+	const CMD_OPEN_EXECUTIONS = "openExecutions";
+	const CMD_NEW_EXECUTION = "newExecution";
+	const CMD_EDIT_EXECUTION = "editExecution";
+	const CMD_DELETE_EXECUTION = "deleteExecution";
+	const CMD_DELETE_EXECUTION_CONFIRM = "deleteExecutionConfirm";
 	const CMD_AUTOCOMPLETE = "userfieldAutocomplete";
-	const CMD_SAVE_ACTION = "saveAction";
-	const CMD_UPDATE_ACTION = "updateAction";
+	const CMD_SAVE_EXECUTION = "saveExecution";
+	const CMD_UPDATE_EXECUTION = "updateExecution";
 
 	/**
 	 * @var \ilCtrl
@@ -63,17 +63,17 @@ class ilOpenActionsGUI
 		$cmd = $this->gCtrl->getCmd(self::CMD_VIEW);
 
 		switch ($cmd) {
-			case self::CMD_OPEN_ACTIONS:
+			case self::CMD_OPEN_EXECUTIONS:
 				$cmd = "view";
 				// switch to cmd "view" to avoid function duplicates
-			case self::CMD_NEW_ACTION:
+			case self::CMD_NEW_EXECUTION:
 			case self::CMD_VIEW:
 			case self::CMD_AUTOCOMPLETE:
-			case self::CMD_SAVE_ACTION:
-			case self::CMD_EDIT_ACTION:
-			case self::CMD_UPDATE_ACTION:
-			case self::CMD_DELETE_ACTION_CONFIRM:
-			case self::CMD_DELETE_ACTION:
+			case self::CMD_SAVE_EXECUTION:
+			case self::CMD_EDIT_EXECUTION:
+			case self::CMD_UPDATE_EXECUTION:
+			case self::CMD_DELETE_EXECUTION_CONFIRM:
+			case self::CMD_DELETE_EXECUTION:
 				$this->$cmd();
 				break;
 			default:
@@ -89,8 +89,8 @@ class ilOpenActionsGUI
 	protected function view()
 	{
 		$this->setToolbar();
-		$table = new Open\ilOpenActionsTableGUI($this, $this->plugin_object);
-		$table->setData($this->actions->getOpenActions());
+		$table = new Open\ilOpenExecutionsTableGUI($this, $this->plugin_object);
+		$table->setData($this->actions->getOpenExecutions());
 		$this->gTpl->setContent($table->getHtml());
 	}
 
@@ -99,14 +99,14 @@ class ilOpenActionsGUI
 	 *
 	 * @param \ilPropertyFormGUI | null 	$form
 	 */
-	protected function newAction($form = null)
+	protected function newExecution($form = null)
 	{
 		if ($form === null) {
 			$form = $this->initForm();
 		}
 
 		$form->setTitle($this->txt("new"));
-		$form->addCommandButton(self::CMD_SAVE_ACTION, $this->txt("save"));
+		$form->addCommandButton(self::CMD_SAVE_EXECUTION, $this->txt("save"));
 		$form->addCommandButton(self::CMD_VIEW, $this->txt("cancel"));
 
 		$this->gTpl->setContent($form->getHtml());
@@ -117,17 +117,17 @@ class ilOpenActionsGUI
 	 *
 	 * @param \ilPropertyFormGUI | null 	$form
 	 */
-	protected function editAction($form = null)
+	protected function editExecution($form = null)
 	{
 		if ($form === null) {
 			$form = $this->initForm();
-			// $id = $this->getActionId();
-			// $values = $this->actions->getActionValues($id);
+			// $id = $this->getExecutionId();
+			// $values = $this->actions->getExecutionValues($id);
 			// $form->setValuesByArray($values);
 		}
 
 		$form->setTitle($this->txt("new"));
-		$form->addCommandButton(self::CMD_UPDATE_ACTION, $this->txt("update"));
+		$form->addCommandButton(self::CMD_UPDATE_EXECUTION, $this->txt("update"));
 		$form->addCommandButton(self::CMD_VIEW, $this->txt("cancel"));
 
 		$this->gTpl->setContent($form->getHtml());
@@ -138,15 +138,17 @@ class ilOpenActionsGUI
 	 *
 	 * @return null
 	 */
-	protected function saveAction()
+	protected function saveExecution()
 	{
 		$form = $this->initForm();
 
 		if (!$form->checkInput()) {
 			$form->setValuesByPost();
-			$this->newAction($form);
+			$this->newExecution($form);
 			return;
 		}
+
+
 
 		\ilUtil::sendSuccess($this->txt("save_success"), true);
 		$this->gCtrl->redirect($this);
@@ -157,13 +159,13 @@ class ilOpenActionsGUI
 	 *
 	 * @return null
 	 */
-	protected function updateAction()
+	protected function updateExecution()
 	{
 		$form = $this->initForm();
 
 		if (!$form->checkInput()) {
 			$form->setValuesByPost();
-			$this->newAction($form);
+			$this->newExecution($form);
 			return;
 		}
 
@@ -174,18 +176,18 @@ class ilOpenActionsGUI
 	/**
 	 * Show confirmation gui
 	 */
-	protected function deleteActionConfirm()
+	protected function deleteExecutionConfirm()
 	{
 		require_once "./Services/Utilities/classes/class.ilConfirmationGUI.php";
 		$confirmation = new \ilConfirmationGUI();
 
-		$confirmation->setFormAction($this->gCtrl->getFormAction($this, self::CMD_DELETE_ACTION));
+		$confirmation->setFormAction($this->gCtrl->getFormAction($this, self::CMD_DELETE_EXECUTION));
 		$confirmation->setHeaderText($this->txt("confirm_delete_action"));
 		$confirmation->setCancel($this->txt("cancel"), self::CMD_VIEW);
-		$confirmation->setConfirm($this->txt("delete"), self::CMD_DELETE_ACTION);
+		$confirmation->setConfirm($this->txt("delete"), self::CMD_DELETE_EXECUTION);
 
-		$action_id = $this->getActionId();
-		// $action = $this->actions->getActionById($action_id);
+		$action_id = $this->getExecutionId();
+		// $action = $this->actions->getExecutionById($action_id);
 		// $confirmation->addItem()
 
 		$confirmation->addHiddenItem("id", $action_id);
@@ -197,10 +199,10 @@ class ilOpenActionsGUI
 	 *
 	 * @return null
 	 */
-	protected function deleteAction()
+	protected function deleteExecution()
 	{
-		$action_id = $this->getActionId();
-		// $this->actions->deleteActionById($action_id);
+		$action_id = $this->getExecutionId();
+		// $this->actions->deleteExecutionById($action_id);
 
 		\ilUtil::sendSuccess($this->txt("delete_success"), true);
 		$this->gCtrl->redirect($this);
@@ -227,7 +229,7 @@ class ilOpenActionsGUI
 		$sh->setTitle($this->txt("settings"));
 		$form->addItem($sh);
 
-		$ti = new \ilTextInputGUI($this->txt("inducement"), ilActions::F_ACTION);
+		$ti = new \ilTextInputGUI($this->txt("inducement"), ilActions::F_INDUCEMENT);
 		$ti->setRequired(true);
 		$form->addItem($ti);
 
@@ -267,7 +269,7 @@ class ilOpenActionsGUI
 	 */
 	protected function setToolbar()
 	{
-		$this->gToolbar->addButton($this->txt("new"), $this->gCtrl->getLinkTarget($this, self::CMD_NEW_ACTION));
+		$this->gToolbar->addButton($this->txt("new"), $this->gCtrl->getLinkTarget($this, self::CMD_NEW_EXECUTION));
 	}
 
 	/**
@@ -295,8 +297,8 @@ class ilOpenActionsGUI
 	protected function getActionMenuItems($id)
 	{
 		$this->gCtrl->setParameter($this, "id", $id);
-		$link_edit = $this->memberlist_link = $this->gCtrl->getLinkTarget($this, self::CMD_EDIT_ACTION);
-		$link_delete = $this->memberlist_link = $this->gCtrl->getLinkTarget($this, self::CMD_DELETE_ACTION_CONFIRM);
+		$link_edit = $this->memberlist_link = $this->gCtrl->getLinkTarget($this, self::CMD_EDIT_EXECUTION);
+		$link_delete = $this->memberlist_link = $this->gCtrl->getLinkTarget($this, self::CMD_DELETE_EXECUTION_CONFIRM);
 		$this->gCtrl->setParameter($this, "id", null);
 
 		$items = array();
@@ -329,7 +331,7 @@ class ilOpenActionsGUI
 	 *
 	 * @return int
 	 */
-	protected function getActionId()
+	protected function getExecutionId()
 	{
 		if (isset($_GET["id"]) && $_GET["id"] !== null && $_GET["id"] != "") {
 			return $_GET["id"];

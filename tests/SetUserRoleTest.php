@@ -9,7 +9,9 @@ class SetUserRoleTest extends TestCase
 
 	public function setUp()
 	{
-		$this->user_collection = $this->createMock("\\CaT\\Plugins\\AutomaticUserAdministration\\Collections\\SingleUserCollection");
+		$this->user_collection = $this->createMock(
+			"\\CaT\\Plugins\\AutomaticUserAdministration\\Collections\\SingleUserCollection"
+		);
 
 		$this->user_collection->method("serialize")
 							  ->willReturn(serialize(10));

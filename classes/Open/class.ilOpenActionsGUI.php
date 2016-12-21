@@ -227,7 +227,7 @@ class ilOpenActionsGUI
 		$sh->setTitle($this->txt("settings"));
 		$form->addItem($sh);
 
-		$ti = new \ilTextInputGUI($this->txt("action"), ilActions::F_ACTION);
+		$ti = new \ilTextInputGUI($this->txt("inducement"), ilActions::F_ACTION);
 		$ti->setRequired(true);
 		$form->addItem($ti);
 

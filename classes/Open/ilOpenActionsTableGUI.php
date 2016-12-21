@@ -33,7 +33,7 @@ class ilOpenActionsTableGUI extends \ilTable2GUI
 	public function fillRow($row)
 	{
 		$this->tpl->setVariable("SCHEDULED", $row["scheduled"]);
-		$this->tpl->setVariable("ACTION", $row["action"]);
+		$this->tpl->setVariable("INDUCEMENT", $row["inducement"]);
 		$this->tpl->setVariable("LOGIN", $row["login"]);
 		$this->tpl->setVariable("FIRSTNAME", $row["firstname"]);
 		$this->tpl->setVariable("LASTNAME", $row["lastname"]);
@@ -59,7 +59,7 @@ class ilOpenActionsTableGUI extends \ilTable2GUI
 		$this->setShowRowsSelector(false);
 
 		$this->addColumn($this->txt("scheduled"), "scheduled");
-		$this->addColumn($this->txt("action"), "action");
+		$this->addColumn($this->txt("inducement"), "inducement");
 		$this->addColumn($this->txt("login"), "login");
 		$this->addColumn($this->txt("firstname"), "firstname");
 		$this->addColumn($this->txt("lastname"), "lastname");

@@ -17,12 +17,11 @@ interface DB
 	 * @param int 			$initiator_id
 	 * @param string 		$inducement
 	 * @param \ilDateTime 	$scheduled
-	 * @param \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction 	$action
-	 * @param \ilDateTime 	$run_date
+	 * @param \CaT\Plugins\AutomaticUserAdministration\Actions\Action 	$action
 	 *
 	 * @return \CaT\Plugins\AutomaticUserAdministration\Execution\Execution
 	 */
-	public function create($initiator_id, $inducement, \ilDateTime $scheduled, \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action, \ilDateTime $run_date);
+	public function create($initiator_id, $inducement, \ilDateTime $scheduled, \CaT\Plugins\AutomaticUserAdministration\Actions\Action $action);
 
 	/**
 	 * Update existing execution

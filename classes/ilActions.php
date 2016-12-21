@@ -53,4 +53,16 @@ class ilActions
 
 		return $open_actions;
 	}
+
+	/**
+	 * Get all openen executens
+	 *
+	 * @return AutomaticUserAdministration\Execution\Execution[]
+	 */
+	public function getClosedExecutions()
+	{
+		$closed_actions = $this->execution_db->getClosedExecutions();
+
+		return $closed_actions;
+	}
 }

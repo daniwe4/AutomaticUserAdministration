@@ -22,11 +22,11 @@ interface UserCollection extends \Serializable
 	public function serialize();
 
 	/**
-	 * Deserialize the collection object values
+	 * Unserialize the collection object values
 	 *
 	 * @param string 	$data
 	 *
 	 * @return null
 	 */
-	public function deserialize($data);
+	public function unserialize($data);
 }

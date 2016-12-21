@@ -134,6 +134,26 @@ class ilDB implements DB
 	/**
 	 * @inheritdoc
 	 */
+	public function getOpenExecutionsScheduledFor($date)
+	{
+		$query = "SELECT id, scheduled, action, run_date, initiator, inducement\n"
+				." FROM ".self::TABLE_NAME."\n"
+				." WHERE run_date IS NULL\n"
+				."     AND scheduled <= ".$this->g_db->quote($date, "text");
+
+		$res = $this->g_db->query($query);
+
+		$ret = array();
+		while ($row = $this->g_db->fetchAssoc($res)) {
+			$ret[$row["id"]] = $this->createExecutionFromDB($row);
+		}
+
+		return $ret;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public function getClosedExecutions($order_column, $order_direction)
 	{
 		$query = "SELECT id, scheduled, action, run_date, initiator, inducement\n"

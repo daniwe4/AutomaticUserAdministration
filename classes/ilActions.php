@@ -164,6 +164,18 @@ class ilActions
 	}
 
 	/**
+	 * Get open executens scheduled for $date
+	 *
+	 * @param string 	$date
+	 *
+	 * @return AutomaticUserAdministration\Execution\Execution[]
+	 */
+	public function getOpenExecutionsScheduledFor($date)
+	{
+		return $this->execution_db->getOpenExecutionsScheduledFor($date);
+	}
+
+	/**
 	 * Get all openen executens
 	 *
 	 * @param string 	$order_column

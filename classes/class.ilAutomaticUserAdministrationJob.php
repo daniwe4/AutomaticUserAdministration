@@ -18,6 +18,8 @@ class ilAutomaticUserAdministrationJob extends ilCronJob
 				"crnhk",
 				ilPlugin::lookupNameForId(IL_COMP_SERVICE, "Cron", "crnhk", $this->getId())
 			);
+
+		$this->actions = $this->plugin->getActions();
 	}
 
 	public function getId()
@@ -85,5 +87,16 @@ class ilAutomaticUserAdministrationJob extends ilCronJob
 	 */
 	public function run()
 	{
+		$now = date("Y-m-d H:i:s");
+		$cron_result = new ilCronJobResult();
+
+		foreach ($this->actions->getOpenExecutionsScheduledFor($now) as $execution) {
+			$execution->getActions()->run();
+			$this->actions->setExecutionRunned($execution->getId());
+			ilCronManager::ping($this->getId());
+		}
+
+		$cron_result->setStatus(ilCronJobResult::STATUS_OK);
+		return $cron_result;
 	}
 }

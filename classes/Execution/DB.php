@@ -51,6 +51,15 @@ interface DB
 	public function getExecution($id);
 
 	/**
+	 * Get all openen executens
+	 *
+	 * @param string 	$date
+	 *
+	 * @return AutomaticUserAdministration\Execution\Execution[]
+	 */
+	public function getOpenExecutionsScheduledFor($date);
+
+	/**
 	 * Get all open executions
 	 *
 	 * @param string 	$order_column

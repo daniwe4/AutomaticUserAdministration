@@ -33,21 +33,25 @@ class ilDB implements DB
 		$initiator_id,
 		$inducement,
 		\ilDateTime $scheduled,
-		\CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action,
-		\ilDateTime $run_date
+		\CaT\Plugins\AutomaticUserAdministration\Actions\Action $action
 	) {
 
 		$next_id = $this->getNextId();
 
-		$execution = new Execution\Execution($next_id, $initiator_id, $inducement, $scheduled, $action, $run_date);
+		$execution = new Execution($next_id, $initiator_id, $inducement, $scheduled, $action);
+
+		$run_date = null;
+		if ($execution->getRunDate() !== null) {
+			$run_date = $execution->getRunDate()->get(IL_CAL_DATETIME);
+		}
 
 		$values = array("id" => array('integer', $execution->getId())
-						, "schedule" => array('text', $execution->getScheduled())
+						, "schedule" => array('text', $execution->getScheduled()->get(IL_CAL_DATETIME))
 						, "action" => array('text', serialize($execution->getAction()))
-						, "run_date" => array('text', $execution->getRunDate())
+						, "run_date" => array('text', $run_date)
 						, "initiator" => array('integer', $execution->getInitatorId())
-						, "inducement" => array('string', $execution->getInducement())
-						, "last_edit" => array('text', date("Y-m-d"))
+						, "inducement" => array('text', $execution->getInducement())
+						, "last_edit" => array('text', date("Y-m-d H:i:s"))
 					);
 
 		$this->g_db->insert(self::TABLE_NAME, $values);
@@ -62,12 +66,17 @@ class ilDB implements DB
 	{
 		$where = array("id" => array('integer', $execution->getId()));
 
-		$values = array("schedule" => array('text', $execution->getScheduled())
+		$run_date = null;
+		if ($execution->getRunDate() !== null) {
+			$run_date = $execution->getRunDate()->get(IL_CAL_DATETIME);
+		}
+
+		$values = array("schedule" => array('text', $execution->getScheduled()->get(IL_CAL_DATETIME))
 						, "action" => array('text', serialize($execution->getAction()))
-						, "run_date" => array('text', $execution->getRunDate())
+						, "run_date" => array('text', $run_date)
 						, "initiator" => array('integer', $execution->getInitatorId())
-						, "inducement" => array('string', $execution->getInducement())
-						, "last_edit" => array('text', date("Y-m-d"))
+						, "inducement" => array('text', $execution->getInducement())
+						, "last_edit" => array('text', date("Y-m-d H:i:s"))
 					);
 
 		$this->g_db->update(self::TABLE_NAME, $values, $where);
@@ -127,16 +136,16 @@ class ilDB implements DB
 	 *
 	 * @param string[] 		$row
 	 *
-	 * @return \CaT\Plugins\AutomaticUserAdministration\Execution\Execution
+	 * @return Execution
 	 */
 	protected function createExecutionFromDB($row)
 	{
-		return new Execution\Execution(
+		return new Execution(
 			(int)$row["id"],
 			(int)$row["initiator"],
 			$row["inducement"],
 			new \ilDateTime($row["schedule"], IL_CAL_DATE),
-			unseralize($row["action"]),
+			unserialize($row["action"]),
 			new \ilDateTime($row["run_date"], IL_CAL_DATE)
 		);
 	}
@@ -148,7 +157,7 @@ class ilDB implements DB
 	 */
 	protected function getNextId()
 	{
-		return $this->g_db->nextId(self::TABLE_NAME);
+		return (int)$this->g_db->nextId(self::TABLE_NAME);
 	}
 
 	/**
@@ -175,7 +184,7 @@ class ilDB implements DB
 					),
 					"run_date" => array(
 							'type' 		=> 'timestamp',
-							'notnull' 	=> true
+							'notnull' 	=> false
 					),
 					"initiator" => array(
 							'type' 		=> 'integer',

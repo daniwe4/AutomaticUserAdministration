@@ -28,17 +28,17 @@ class SingleUserCollection implements UserCollection
 	 */
 	public function serialize()
 	{
-		return serialize($this->getUsers());
+		return serialize($this->user_id);
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function deserialize($data)
+	public function unserialize($data)
 	{
-		$data = unserialize($data);
-
-		$this->user_id = $data[0];
+		$user_id = unserialize($data);
+		assert('is_int($user_id)');
+		$this->user_id = $user_id;
 	}
 
 	/**

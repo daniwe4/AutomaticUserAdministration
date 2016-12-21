@@ -80,4 +80,24 @@ class SetUserRoles extends UserAction
 		$clone->roles = $roles;
 		return $clone;
 	}
+
+	/**
+	 * Get the user collection
+	 *
+	 * @return \CaT\Plugins\AutomaticUserAdministration\UserCollection
+	 */
+	public function getUserCollection()
+	{
+		return $this->user_collection;
+	}
+
+	/**
+	 * Get the roles
+	 *
+	 * @return int[]
+	 */
+	public function getRoles()
+	{
+		return $this->roles;
+	}
 }

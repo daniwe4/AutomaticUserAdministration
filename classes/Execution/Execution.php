@@ -44,10 +44,10 @@ class Execution
 		$initiator_id,
 		$inducement,
 		\ilDateTime $scheduled,
-		\CaT\Plugin\AutomaticUserAdministration\Actions\Action $action,
+		\CaT\Plugins\AutomaticUserAdministration\Actions\Action $action,
 		\ilDateTime $run_date = null
 	) {
-		assert('is_int(id)');
+		assert('is_int($id)');
 		assert('is_int($initiator_id)');
 		assert('is_string($inducement)');
 

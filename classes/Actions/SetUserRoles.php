@@ -12,8 +12,10 @@ class SetUserRoles extends UserAction
 	 */
 	protected $roles;
 
-	public function __construct(\CaT\Plugins\AutomaticUserAdministration\Collections\UserCollection $user_collection, array $roles)
-	{
+	public function __construct(
+		\CaT\Plugins\AutomaticUserAdministration\Collections\UserCollection $user_collection,
+		array $roles
+	) {
 		parent::__construct($user_collection);
 		$this->roles = $roles;
 	}

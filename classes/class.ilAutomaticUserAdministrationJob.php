@@ -91,7 +91,7 @@ class ilAutomaticUserAdministrationJob extends ilCronJob
 		$cron_result = new ilCronJobResult();
 
 		foreach ($this->actions->getOpenExecutionsScheduledFor($now) as $execution) {
-			$execution->getActions()->run();
+			$execution->getAction()->run();
 			$this->actions->setExecutionRunned($execution->getId());
 			ilCronManager::ping($this->getId());
 		}

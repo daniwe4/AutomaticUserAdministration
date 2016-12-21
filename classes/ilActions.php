@@ -116,6 +116,20 @@ class ilActions
 	}
 
 	/**
+	 * Set execution runned
+	 *
+	 * @param int 		$execution_id
+	 */
+	public function setExecutionRunned($execution_id)
+	{
+		$execution = $this->getExecutionById($execution_id);
+
+		$execution = $execution->withRunDate(new \ilDateTime(date("Y-m-d H:i:s"), IL_CAL_DATETIME));
+
+		$this->execution_db->update($execution);
+	}
+
+	/**
 	 * Get action object for SetUserRoles
 	 *
 	 * @param string 	$login

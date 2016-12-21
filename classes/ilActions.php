@@ -29,17 +29,27 @@ class ilActions
 	 * @param int 			$initiator_id
 	 * @param string 		$inducement
 	 * @param \ilDateTime 	$scheduled
-	 * @param \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction 	$action
-	 * @param \ilDateTime 	$run_date
+	 * @param \CaT\Plugins\AutomaticUserAdministration\Actions\Action 	$action
 	 */
-	public function createExeution(
+	public function createExecution(
 		$initiator_id,
 		$inducement,
 		\ilDateTime $scheduled,
-		\CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action,
-		\ilDateTime $run_date
+		\CaT\Plugins\AutomaticUserAdministration\Actions\Action $action
 	) {
-		$this->execution_db->create($initiator_id, $inducement, $scheduled, $action, $run_date);
+		$this->execution_db->create($initiator_id, $inducement, $scheduled, $action);
+		die("sdsd");
+	}
+
+	public function getRoleAssignAction($login, array $roles)
+	{
+		assert('is_string($login)');
+
+		require_once("Services/User/classes/class.ilObjUser.php");
+		$user_id = \ilObjUser::_lookupId($login);
+		$single_user_colection = new Collections\SingleUserCollection((int)$user_id);
+
+		return new Actions\SetUserRoles($single_user_colection, $roles);
 	}
 
 	/**

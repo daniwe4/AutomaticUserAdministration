@@ -100,6 +100,6 @@ class ilAutomaticUserAdministrationConfigGUI extends ilPluginConfigGUI
 		$closed_link = $this->gCtrl->getLinkTarget($this, self::CMD_CLOSED_EXECUTIONS);
 
 		$this->gTabs->addTab(self::CMD_OPEN_EXECUTIONS, $this->plugin_object->txt("open_executions"), $open_link);
-		$this->gTabs->addTab(self::CMD_CLOSED_EXECUTIONS, $this->plugin_object->txt("closed_exetions"), $closed_link);
+		$this->gTabs->addTab(self::CMD_CLOSED_EXECUTIONS, $this->plugin_object->txt("closed_executions"), $closed_link);
 	}
 }

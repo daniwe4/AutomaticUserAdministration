@@ -5,28 +5,23 @@ namespace CaT\Plugins\AutomaticUserAdministration\Actions;
 /**
  * Interface for user actions
  */
-class SetUserRoles implements UserAction
+class SetUserRoles extends UserAction
 {
-	/**
-	 * @var \CaT\Plugins\AutomaticUserAdministration\UserCollection
-	 */
-	protected $user_collection;
-
 	/**
 	 * @var int[]
 	 */
 	protected $roles;
 
-	public function __construct(\CaT\Plugins\AutomaticUserAdministration\UserCollection $user_collection, array $roles)
+	public function __construct(\CaT\Plugins\AutomaticUserAdministration\Collections\UserCollection $user_collection, array $roles)
 	{
-		$this->user_collection = $user_collection;
+		parent::__construct($user_collection);
 		$this->roles = $roles;
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function getId()
+	public function getName()
 	{
 		return "set_user_role";
 	}
@@ -51,7 +46,7 @@ class SetUserRoles implements UserAction
 	/**
 	 * @inheritdoc
 	 */
-	public function deserialize($data)
+	public function unserialize($data)
 	{
 		$data = unserialize($data);
 		$this->user_collection = $data["collection"];

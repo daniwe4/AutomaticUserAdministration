@@ -14,6 +14,12 @@ interface DB
 	/**
 	 * Create a new execution object
 	 *
+	 * @param int 			$initiator_id
+	 * @param string 		$inducement
+	 * @param \ilDateTime 	$scheduled
+	 * @param \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction 	$action
+	 * @param \ilDateTime 	$run_date
+	 *
 	 * @return \CaT\Plugins\AutomaticUserAdministration\Execution\Execution
 	 */
 	public function create($initiator_id, $inducement, \ilDateTime $scheduled, \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action, \ilDateTime $run_date);

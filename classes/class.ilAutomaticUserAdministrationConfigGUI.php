@@ -86,7 +86,7 @@ class ilAutomaticUserAdministrationConfigGUI extends ilPluginConfigGUI
 	protected function forwardClosedExecutions()
 	{
 		$this->gTabs->activateTab(self::CMD_CLOSED_EXECUTIONS);
-		require_once($this->plugin_object->getDirectory()."/classes/Closed/class.ilClosedExecutionsGUI.php");
+		require_once($this->plugin_object->getDirectory()."/classes/Execution/class.ilClosedExecutionsGUI.php");
 		$gui = new \ilClosedExecutionsGUI($this, $this->plugin_object, $this->actions);
 		$this->gCtrl->forwardCommand($gui);
 	}

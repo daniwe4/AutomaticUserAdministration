@@ -1,9 +1,9 @@
 <?php
 
-use \CaT\Plugins\AutomaticUserAdministration\Open;
+use \CaT\Plugins\AutomaticUserAdministration\Execution;
 use \CaT\Plugins\AutomaticUserAdministration\ilActions;
 
-class ilOpenActionsGUI
+class ilOpenExecutionsGUI
 {
 	const CMD_VIEW = "view";
 	const CMD_OPEN_EXECUTIONS = "openExecutions";

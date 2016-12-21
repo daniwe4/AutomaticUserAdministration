@@ -1,5 +1,5 @@
 <?php
-use CaT\Plugins\AutomaticUserAdministration\ilActions;
+use CaT\Plugins\AutomaticUserAdministration;
 
 require_once(__DIR__."/../vendor/autoload.php");
 include_once("./Services/Cron/classes/class.ilCronHookPlugin.php");
@@ -9,6 +9,16 @@ include_once("./Services/Cron/classes/class.ilCronHookPlugin.php");
  */
 class ilAutomaticUserAdministrationPlugin extends ilCronHookPlugin
 {
+	/**
+	 * @var AutomaticUserAdministration\ilActions
+	 */
+	protected $actions;
+
+	/**
+	 * @var AutomaticUserAdministration\Execution\ilDB
+	 */
+	protected $execution_db;
+
 	/**
 	 * Get the name of the Plugin
 	 *
@@ -57,14 +67,24 @@ class ilAutomaticUserAdministrationPlugin extends ilCronHookPlugin
 	/**
 	 * Get the ilActions
 	 *
-	 * @return ilEffAnalysisActions
+	 * @return AutomaticUserAdministration\ilActions
 	 */
 	public function getActions()
 	{
 		if ($this->actions === null) {
-			$this->actions = new ilActions();
+			$this->actions = new AutomaticUserAdministration\ilActions($this->getExecutionDB());
 		}
 
 		return $this->actions;
+	}
+
+	protected function getExecutionDB()
+	{
+		global $ilDB;
+		if ($this->execution_db === null) {
+			$this->execution_db = new AutomaticUserAdministration\Execution\ilDB($ilDB);
+		}
+
+		return $this->execution_db;
 	}
 }

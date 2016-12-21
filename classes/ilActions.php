@@ -13,19 +13,20 @@ class ilActions
 	const F_ROLES = "roles";
 	const F_SCHEDULED = "scheduled";
 
+	/**
+	 * @var \CaT\Plugins\AutomaticUserAdministration\Execution\DB
+	 */
+	protected $execution_db;
+
+	public function __construct(\CaT\Plugins\AutomaticUserAdministration\Execution\DB $execution_db)
+	{
+		$this->execution_db = $execution_db;
+	}
+
 	public function getOpenActions()
 	{
-		$ret = array();
+		$open_actions = $this->execution_db->getOpenExecutions();
 
-		$ret["id"] = 1;
-		$ret["scheduled"] = date("d.m.Y H:i:s");
-		$ret["action"] = "Test";
-		$ret["login"] = "Test";
-		$ret["firstname"] = "Test";
-		$ret["lastname"] = "Test";
-		$ret["roles"] = "Test";
-		$ret["initiator"] = "Test";
-
-		return array($ret);
+		return $open_actions;
 	}
 }

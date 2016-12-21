@@ -1,10 +1,10 @@
 <?php
 
-use \CaT\Plugins\AutomaticUserAdministration\Closed;
+use \CaT\Plugins\AutomaticUserAdministration\Execution;
 
-class ilClosedActionsGUI
+class ilClosedExecutionsGUI
 {
-	const CMD_CLOSED_ACTIONS = "closedActions";
+	const CMD_CLOSED_EXECUTIONS = "closedExecutions";
 
 	/**
 	 * @var \ilCtrl
@@ -45,10 +45,10 @@ class ilClosedActionsGUI
 
 	public function executeCommand()
 	{
-		$cmd = $this->gCtrl->getCmd(self::CMD_CLOSED_ACTIONS);
+		$cmd = $this->gCtrl->getCmd(self::CMD_CLOSED_EXECUTIONS);
 
 		switch ($cmd) {
-			case self::CMD_CLOSED_ACTIONS:
+			case self::CMD_CLOSED_EXECUTIONS:
 				$this->$cmd();
 				break;
 			default:
@@ -61,9 +61,9 @@ class ilClosedActionsGUI
 	 *
 	 * @return null
 	 */
-	protected function closedActions()
+	protected function closedExecutions()
 	{
-		$table = new Closed\ilClosedActionsTableGUI($this, $this->plugin_object);
+		$table = new Execution\ilClosedExecutionsTableGUI($this, $this->plugin_object);
 		$table->setData($this->actions->getOpenActions());
 		$this->gTpl->setContent($table->getHtml());
 	}

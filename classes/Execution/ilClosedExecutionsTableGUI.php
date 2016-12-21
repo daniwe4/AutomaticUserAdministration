@@ -1,14 +1,14 @@
 <?php
 
-namespace CaT\Plugins\AutomaticUserAdministration\Closed;
+namespace CaT\Plugins\AutomaticUserAdministration\Execution;
 
 require_once("Services/Table/classes/class.ilTable2GUI.php");
-require_once(__DIR__."/class.ilClosedActionsGUI.php");
+require_once(__DIR__."/class.ilClosedExecusionsGUI.php");
 
 /**
  * Table gui to show all closed actions
  */
-class ilClosedActionsTableGUI extends \ilTable2GUI
+class ilClosedExecutionsTableGUI extends \ilTable2GUI
 {
 		/**
 	 * @var \ilClosedActionsGUI
@@ -20,7 +20,7 @@ class ilClosedActionsTableGUI extends \ilTable2GUI
 	 */
 	protected $plugin_object;
 
-	public function __construct(\ilClosedActionsGUI $parent_object, \ilAutomaticUserAdministrationPlugin $plugin_object)
+	public function __construct(\ilClosedExecusionsGUI $parent_object, \ilAutomaticUserAdministrationPlugin $plugin_object)
 	{
 		parent::__construct($parent_object);
 
@@ -49,12 +49,12 @@ class ilClosedActionsTableGUI extends \ilTable2GUI
 	protected function configurateTable()
 	{
 		$this->setEnableTitle(true);
-		$this->setTitle($this->txt("closed_actions"));
+		$this->setTitle($this->txt("closed_executions"));
 		$this->setTopCommands(false);
 		$this->setEnableHeader(true);
 		$this->setExternalSorting(false);
 		$this->setExternalSegmentation(false);
-		$this->setRowTemplate("tpl.closed_actions_table_row.html", $this->plugin_object->getDirectory());
+		$this->setRowTemplate("tpl.closed_executions_table_row.html", $this->plugin_object->getDirectory());
 		$this->setShowRowsSelector(false);
 
 		$this->addColumn($this->txt("scheduled"), "scheduled");

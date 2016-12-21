@@ -157,7 +157,7 @@ class ilOpenExecutionsGUI
 		$scheduled_post = $post[ilActions::F_SCHEDULED];
 		$scheduled = new \ilDateTime($scheduled_post["date"]." ".$scheduled_post["time"], IL_CAL_DATETIME);
 
-		$action = $this->actions->getRoleAssignAction($post[ilActions::F_LOGIN], $post[ilActions::F_ROLES]);
+		$action = $this->actions->getSetUserRolesAction($post[ilActions::F_LOGIN], $post[ilActions::F_ROLES]);
 
 		$this->actions->createExecution($initiator_id, $inducement, $scheduled, $action);
 

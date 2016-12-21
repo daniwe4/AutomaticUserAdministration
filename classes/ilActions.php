@@ -41,7 +41,15 @@ class ilActions
 		die("sdsd");
 	}
 
-	public function getRoleAssignAction($login, array $roles)
+	/**
+	 * Get action object for SetUserRoles
+	 *
+	 * @param string 	$login
+	 * @param int[] 	$roles
+	 *
+	 * @return Actions\SetUserRoles
+	 */
+	public function getSetUserRolesAction($login, array $roles)
 	{
 		assert('is_string($login)');
 

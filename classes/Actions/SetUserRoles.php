@@ -57,4 +57,32 @@ class SetUserRoles implements UserAction
 		$this->user_collection = $data["collection"];
 		$this->roles = $data["roles"];
 	}
+
+	/**
+	 * Get new intance with user collection
+	 *
+	 * @param \CaT\Plugins\AutomaticUserAdministration\UserCollection $user_collection
+	 *
+	 * @return Actions\SetUserRoles
+	 */
+	public function withUserCollection(\CaT\Plugins\AutomaticUserAdministration\UserCollection $user_collection)
+	{
+		$clone = clone $this;
+		$clone->user_collection = $user_collection;
+		return $clone;
+	}
+
+	/**
+	 * Get new instance with roles
+	 *
+	 * @param array $roles
+	 *
+	 * @return Actions\SetUserRoles
+	 */
+	public function withRoles(array $roles)
+	{
+		$clone = clone $this;
+		$clone->roles = $roles;
+		return $clone;
+	}
 }

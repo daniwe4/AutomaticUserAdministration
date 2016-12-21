@@ -34,8 +34,13 @@ class Execution
 	 */
 	protected $run_date;
 
-	public function __construct($id, $initiator_id, \ilDateTime $scheduled, \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action, \ilDateTime $run_date = null)
-	{
+	public function __construct(
+		$id,
+		$initiator_id,
+		\ilDateTime $scheduled,
+		\CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action,
+		\ilDateTime $run_date = null
+	) {
 		assert('is_int(id)');
 		assert('is_int($initiator_id)');
 
@@ -108,5 +113,33 @@ class Execution
 	public function getRunDate()
 	{
 		return $this->run_date;
+	}
+
+	/**
+	 * Get new instance with action
+	 *
+	 * @param \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action
+	 *
+	 * @return Execution\Execution
+	 */
+	public function withAction(\CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action)
+	{
+		$clone = clone $this;
+		$clone->action = $action;
+		return $clone;
+	}
+
+	/**
+	 * Get new instance with scheduled
+	 *
+	 * @param \ilDateTime $scheduled
+	 *
+	 * @return Execution\Execution
+	 */
+	public function withScheduled(\ilDateTime $scheduled)
+	{
+		$clone = clone $this;
+		$clone->scheduled = $scheduled;
+		return $clone;
 	}
 }

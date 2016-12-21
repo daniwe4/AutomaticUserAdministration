@@ -191,4 +191,18 @@ class Execution
 		$clone->scheduled = $scheduled;
 		return $clone;
 	}
+
+	/**
+	 * Get new instance with run date
+	 *
+	 * @param \ilDateTime $scheduled
+	 *
+	 * @return Execution\Execution
+	 */
+	public function withRunDate(\ilDateTime $run_date)
+	{
+		$clone = clone $this;
+		$clone->run_date = $run_date;
+		return $clone;
+	}
 }

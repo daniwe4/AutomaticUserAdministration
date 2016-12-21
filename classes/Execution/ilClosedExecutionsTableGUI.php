@@ -3,7 +3,7 @@
 namespace CaT\Plugins\AutomaticUserAdministration\Execution;
 
 require_once("Services/Table/classes/class.ilTable2GUI.php");
-require_once(__DIR__."/class.ilClosedExecusionsGUI.php");
+require_once(__DIR__."/class.ilClosedExecutionsGUI.php");
 
 /**
  * Table gui to show all closed actions
@@ -20,7 +20,7 @@ class ilClosedExecutionsTableGUI extends \ilTable2GUI
 	 */
 	protected $plugin_object;
 
-	public function __construct(\ilClosedExecusionsGUI $parent_object, \ilAutomaticUserAdministrationPlugin $plugin_object)
+	public function __construct(\ilClosedExecutionsGUI $parent_object, \ilAutomaticUserAdministrationPlugin $plugin_object)
 	{
 		parent::__construct($parent_object);
 

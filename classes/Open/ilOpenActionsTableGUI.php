@@ -3,15 +3,15 @@
 namespace CaT\Plugins\AutomaticUserAdministration\Open;
 
 require_once("Services/Table/classes/class.ilTable2GUI.php");
-require_once(__DIR__."/class.ilOpenActionsGUI.php");
+require_once(__DIR__."/class.ilOpenExecutionGUI.php");
 
 /**
  * Table gui to show all open actions
  */
-class ilOpenActionsTableGUI extends \ilTable2GUI
+class ilOpenExecutionTableGUI extends \ilTable2GUI
 {
 	/**
-	 * @var \ilOpenActionsGUI
+	 * @var \ilOpenExecutionGUI
 	 */
 	protected $parent_object;
 
@@ -20,7 +20,7 @@ class ilOpenActionsTableGUI extends \ilTable2GUI
 	 */
 	protected $plugin_object;
 
-	public function __construct(\ilOpenActionsGUI $parent_object, \ilAutomaticUserAdministrationPlugin $plugin_object)
+	public function __construct(\ilOpenExecutionGUI $parent_object, \ilAutomaticUserAdministrationPlugin $plugin_object)
 	{
 		parent::__construct($parent_object);
 
@@ -50,12 +50,12 @@ class ilOpenActionsTableGUI extends \ilTable2GUI
 	protected function configurateTable()
 	{
 		$this->setEnableTitle(true);
-		$this->setTitle($this->txt("open_actions"));
+		$this->setTitle($this->txt("open_executions"));
 		$this->setTopCommands(false);
 		$this->setEnableHeader(true);
 		$this->setExternalSorting(false);
 		$this->setExternalSegmentation(false);
-		$this->setRowTemplate("tpl.open_actions_table_row.html", $this->plugin_object->getDirectory());
+		$this->setRowTemplate("tpl.open_executions_table_row.html", $this->plugin_object->getDirectory());
 		$this->setShowRowsSelector(false);
 
 		$this->addColumn($this->txt("scheduled"), "scheduled");

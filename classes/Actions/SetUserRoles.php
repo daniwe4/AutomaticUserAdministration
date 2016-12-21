@@ -46,47 +46,55 @@ class SetUserRoles extends UserAction
 		global $rbacadmin, $rbacreview;
 		$this->g_rbacadmin = $rbacadmin;
 		$this->g_rbacreview = $rbacreview;
+		$user_id = $this->user_collection->getUsers()[0];
 
-		$user_assigned_to = $this->getUserGlobalRoles();
-
+		$user_assigned_to = $this->getUserGlobalRoles($user_id);
 		$new_roles = array_diff($this->roles, $user_assigned_to);
 		$deprecated_roles = array_diff($user_assigned_to, $this->roles);
 
-		$this->deassignRoles($deprecated_roles);
-		$this->assignRoles($new_roles);
+		$this->deassignRoles($user_id, $deprecated_roles);
+		$this->assignRoles($user_id, $new_roles);
 	}
 
 	/**
 	 * Get roles user is assigned to
 	 *
+	 * @param int 		$user_id
+	 *
 	 * @return int[]
 	 */
-	protected function getUserGlobalRoles()
+	protected function getUserGlobalRoles($user_id)
 	{
-		return $this->g_rbacreview->assignedGlobalRoles($this->user_id);
+		return $this->g_rbacreview->assignedGlobalRoles($user_id);
 	}
 
 	/**
 	 * Deassign user from roles
 	 *
-	 * @param int[]
+	 * @param int 		$user_id
+	 * @param int[]		$deprecated_roles
 	 */
-	protected function deassignRoles(array $deprecated_roles)
+	protected function deassignRoles($user_id, array $deprecated_roles)
 	{
+		assert('is_int($user_id)');
+
 		foreach ($deprecated_roles as $role_id) {
-			$this->g_rbacadmin->deassignUser($role_id, $this->user_id);
+			$this->g_rbacadmin->deassignUser($role_id, $user_id);
 		}
 	}
 
 	/**
 	 * Assign user to roles
 	 *
-	 * @param int[]
+	 * @param int 		$user_id
+	 * @param int[] 	$new_roles
 	 */
-	protected function assignRoles(array $new_roles)
+	protected function assignRoles($user_id, array $new_roles)
 	{
-		foreach ($deprecated_roles as $role_id) {
-			$this->g_rbacadmin->assignUser($role_id, $this->user_id);
+		assert('is_int($user_id)');
+
+		foreach ($new_roles as $role_id) {
+			$this->g_rbacadmin->assignUser($role_id, $user_id);
 		}
 	}
 

@@ -185,14 +185,14 @@ class ilDB implements DB
 	{
 		$run_date = null;
 		if ($row["run_date"] !== null) {
-			$run_date = new \ilDateTime($row["run_date"], IL_CAL_DATE);
+			$run_date = new \ilDateTime($row["run_date"], IL_CAL_DATETIME);
 		}
 
 		return new Execution(
 			(int)$row["id"],
 			(int)$row["initiator"],
 			$row["inducement"],
-			new \ilDateTime($row["scheduled"], IL_CAL_DATE),
+			new \ilDateTime($row["scheduled"], IL_CAL_DATETIME),
 			unserialize($row["action"]),
 			$run_date
 		);

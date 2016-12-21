@@ -64,7 +64,7 @@ class ilClosedExecutionsGUI
 	protected function closedExecutions()
 	{
 		$table = new Execution\ilClosedExecutionsTableGUI($this, $this->plugin_object);
-		$table->setData($this->actions->getOpenActions());
+		$table->setData($this->actions->getClosedActions());
 		$this->gTpl->setContent($table->getHtml());
 	}
 }

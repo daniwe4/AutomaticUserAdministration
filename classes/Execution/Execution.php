@@ -38,7 +38,7 @@ class Execution
 		$id,
 		$initiator_id,
 		\ilDateTime $scheduled,
-		\CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action,
+		\CaT\Plugin\AutomaticUserAdministration\Actions\Action $action,
 		\ilDateTime $run_date = null
 	) {
 		assert('is_int(id)');
@@ -113,6 +113,22 @@ class Execution
 	public function getRunDate()
 	{
 		return $this->run_date;
+	}
+
+	/**
+	 * Get new instance with initiator
+	 *
+	 * @param type $initiator_id
+	 *
+	 * @return type
+	 */
+	public function withInitiator($initiator_id)
+	{
+		assert('is_int($initiator_id)');
+		$clone = clone $this;
+		$clone->initiator_id = $initiator_id;
+		$clone->user = null;
+		return $clone;
 	}
 
 	/**

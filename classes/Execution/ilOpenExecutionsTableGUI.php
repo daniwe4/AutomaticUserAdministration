@@ -1,6 +1,6 @@
 <?php
 
-namespace CaT\Plugins\AutomaticUserAdministration\Open;
+namespace CaT\Plugins\AutomaticUserAdministration\Execution;
 
 require_once("Services/Table/classes/class.ilTable2GUI.php");
 require_once(__DIR__."/class.ilOpenExecutionGUI.php");

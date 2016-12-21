@@ -42,6 +42,34 @@ class ilActions
 	}
 
 	/**
+	 * Get form values for executen
+	 *
+	 * @param type $id
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function getExecutionValues($id)
+	{
+		$execution = $this->execution_db->getExecution($id);
+
+		$users = $execution->getAction()->getUserCollection()->getUsers();
+		$user = new \ilObjUser($users[0]);
+
+		$scheduled = $execution->getScheduled()->get(IL_CAL_DATETIME);
+		$scheduled = implode(" ", $scheduled);
+		$datetime["date"] = $scheduled[0];
+		$datetime["time"] = $scheduled[1];
+
+		$values = array();
+		$values[self::F_INDUCEMENT] = $execution->getInducement();
+		$values[self::F_LOGIN] = $user->getLogin();
+		$values[self::F_ROLES] = $execution->getAction()->getRoles();
+		$values[self::F_SCHEDULED] = $datetime;
+
+		return $values;
+	}
+
+	/**
 	 * Get action object for SetUserRoles
 	 *
 	 * @param string 	$login

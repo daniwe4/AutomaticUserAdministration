@@ -42,6 +42,15 @@ interface DB
 	public function delete($id);
 
 	/**
+	 * Get exexution
+	 *
+	 * @param int 	$id
+	 *
+	 * @return \CaT\Plugins\AutomaticUserAdministration\Execution\Execution 	$execution
+	 */
+	public function getExecution($id);
+
+	/**
 	 * Get all open executions
 	 *
 	 * @param string 	$order_column

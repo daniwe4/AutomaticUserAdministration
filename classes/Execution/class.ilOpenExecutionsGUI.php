@@ -123,9 +123,9 @@ class ilOpenExecutionsGUI
 	{
 		if ($form === null) {
 			$form = $this->initForm();
-			// $id = $this->getExecutionId();
-			// $values = $this->actions->getExecutionValues($id);
-			// $form->setValuesByArray($values);
+			$id = $this->getExecutionId();
+			$values = $this->actions->getExecutionValues($id);
+			$form->setValuesByArray($values);
 		}
 
 		$form->setTitle($this->txt("new"));

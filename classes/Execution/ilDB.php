@@ -96,6 +96,21 @@ class ilDB implements DB
 	/**
 	 * @inheritdoc
 	 */
+	public function getExecution($id)
+	{
+		$query = "SELECT id, scheduled, action, run_date, initiator, inducement\n"
+				." FROM ".self::TABLE_NAME."\n"
+				." WHERE id = ".$this->g_db->quote($id, "integer");
+
+		$res = $this->g_db->query($query);
+		$row = $this->g_db->fetchAssoc($res);
+
+		return $this->createExecutionFromDB($row);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public function getOpenExecutions($order_column, $order_direction)
 	{
 		$query = "SELECT id, scheduled, action, run_date, initiator, inducement\n"

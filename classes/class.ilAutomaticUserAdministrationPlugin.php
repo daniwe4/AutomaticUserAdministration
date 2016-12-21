@@ -32,24 +32,24 @@ class ilAutomaticUserAdministrationPlugin extends ilCronHookPlugin
 	/**
 	 * Get a number of job instance
 	 *
-	 * @return \ilAutomaticUserAdministrationPlugin[]
+	 * @return \ilAutomaticUserAdministrationJob[]
 	 */
 	public function getCronJobInstances()
 	{
-		require_once $this->getDirectory()."/classes/class.ilAutomaticUserAdministrationPlugin.php";
-		$job = new \ilAutomaticUserAdministrationPlugin();
+		require_once $this->getDirectory()."/classes/class.ilAutomaticUserAdministrationJob.php";
+		$job = new \ilAutomaticUserAdministrationJob();
 		return array($job);
 	}
 
 	/**
 	 * Get a single job instance
 	 *
-	 * @return \ilAutomaticUserAdministrationPlugin[]
+	 * @return \ilAutomaticUserAdministrationJob[]
 	 */
 	public function getCronJobInstance($a_job_id)
 	{
-		require_once $this->getDirectory()."/classes/class.ilAutomaticUserAdministrationPlugin.php";
-		return new \ilAutomaticUserAdministrationPlugin();
+		require_once $this->getDirectory()."/classes/class.ilAutomaticUserAdministrationJob.php";
+		return new \ilAutomaticUserAdministrationJob();
 	}
 
 	/**

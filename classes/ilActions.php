@@ -39,7 +39,6 @@ class ilActions
 		\CaT\Plugins\AutomaticUserAdministration\Actions\Action $action
 	) {
 		$this->execution_db->create($initiator_id, $inducement, $scheduled, $action);
-		die("sdsd");
 	}
 
 	/**

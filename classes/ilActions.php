@@ -12,6 +12,7 @@ class ilActions
 	const F_LOGIN = "login";
 	const F_ROLES = "roles";
 	const F_SCHEDULED = "scheduled";
+	const F_EXECUTION_ID = "executionId";
 
 	/**
 	 * @var \CaT\Plugins\AutomaticUserAdministration\Execution\DB
@@ -42,6 +43,31 @@ class ilActions
 	}
 
 	/**
+	 * Update an existing execution
+	 *
+	 * @param int 			$execution_id
+	 * @param int 			$initiator_id
+	 * @param string 		$inducement
+	 * @param \ilDateTime 	$scheduled
+	 * @param \CaT\Plugins\AutomaticUserAdministration\Actions\Action 	$action
+	 */
+	public function updateExecution(
+		$execution_id,
+		$initiator_id,
+		$inducement,
+		\ilDateTime $scheduled,
+		\CaT\Plugins\AutomaticUserAdministration\Actions\Action $action
+	) {
+		$execution = $this->execution_db->getExecution($execution_id);
+		$execution = $execution->withInitiator($initiator_id)
+							   ->withInducement($inducement)
+							   ->withAction($action)
+							   ->withScheduled($scheduled);
+
+		$this->execution_db->update($execution);
+	}
+
+	/**
 	 * Get form values for executen
 	 *
 	 * @param type $id
@@ -65,6 +91,7 @@ class ilActions
 		$values[self::F_LOGIN] = $user->getLogin();
 		$values[self::F_ROLES] = $execution->getAction()->getRoles();
 		$values[self::F_SCHEDULED] = $datetime;
+		$values[self::F_EXECUTION_ID] = $execution->getId();
 
 		return $values;
 	}

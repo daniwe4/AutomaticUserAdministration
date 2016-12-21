@@ -30,7 +30,7 @@ interface DB
 	 *
 	 * @return null
 	 */
-	public function update(CaT\Plugins\AutomaticUserAdministration\Execution\Execution $execution);
+	public function update(\CaT\Plugins\AutomaticUserAdministration\Execution\Execution $execution);
 
 	/**
 	 * Delete an execution by id

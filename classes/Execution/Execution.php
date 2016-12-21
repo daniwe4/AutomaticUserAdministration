@@ -167,11 +167,11 @@ class Execution
 	/**
 	 * Get new instance with action
 	 *
-	 * @param \CaT\Plugin\AutomaticUserAdministration\Actions\UserAction 	$action
+	 * @param \CaT\Plugins\AutomaticUserAdministration\Actions\UserAction 	$action
 	 *
 	 * @return Execution\Execution
 	 */
-	public function withAction(\CaT\Plugin\AutomaticUserAdministration\Actions\UserAction $action)
+	public function withAction(\CaT\Plugins\AutomaticUserAdministration\Actions\UserAction $action)
 	{
 		$clone = clone $this;
 		$clone->action = $action;

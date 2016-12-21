@@ -180,6 +180,18 @@ class ilOpenExecutionsGUI
 			return;
 		}
 
+		$post = $_POST;
+		$ececution_id = $post[ilActions::F_EXECUTION_ID];
+		$initiator_id = (int)$this->g_user->getId();
+		$inducement = $post[ilActions::F_INDUCEMENT];
+
+		$scheduled_post = $post[ilActions::F_SCHEDULED];
+		$scheduled = new \ilDateTime($scheduled_post["date"]." ".$scheduled_post["time"], IL_CAL_DATETIME);
+
+		$action = $this->actions->getSetUserRolesAction($post[ilActions::F_LOGIN], $post[ilActions::F_ROLES]);
+
+		$this->actions->updateExecution($ececution_id, $initiator_id, $inducement, $scheduled, $action);
+
 		\ilUtil::sendSuccess($this->txt("update_success"), true);
 		$this->gCtrl->redirect($this);
 	}
@@ -271,6 +283,9 @@ class ilOpenExecutionsGUI
 			$cbxg->addOption($option);
 		}
 		$form->addItem($cbxg);
+
+		$hi = new \ilHiddenInputGUI(ilActions::F_EXECUTION_ID);
+		$form->addItem($hi);
 
 		return $form;
 	}

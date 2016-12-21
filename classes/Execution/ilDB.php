@@ -62,7 +62,7 @@ class ilDB implements DB
 	/**
 	 * @inheritdoc
 	 */
-	public function update(CaT\Plugins\AutomaticUserAdministration\Execution\Execution $execution)
+	public function update(\CaT\Plugins\AutomaticUserAdministration\Execution\Execution $execution)
 	{
 		$where = array("id" => array('integer', $execution->getId()));
 
@@ -163,13 +163,18 @@ class ilDB implements DB
 	 */
 	protected function createExecutionFromDB($row)
 	{
+		$run_date = null;
+		if ($row["run_date"] !== null) {
+			$run_date = new \ilDateTime($row["run_date"], IL_CAL_DATE);
+		}
+
 		return new Execution(
 			(int)$row["id"],
 			(int)$row["initiator"],
 			$row["inducement"],
 			new \ilDateTime($row["scheduled"], IL_CAL_DATE),
 			unserialize($row["action"]),
-			new \ilDateTime($row["run_date"], IL_CAL_DATE)
+			$run_date
 		);
 	}
 

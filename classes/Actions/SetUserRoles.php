@@ -12,6 +12,16 @@ class SetUserRoles extends UserAction
 	 */
 	protected $roles;
 
+	/**
+	 * @var \ilRbacReview
+	 */
+	protected $g_rbacreview;
+
+	/**
+	 * @var \ilRbacAdmin
+	 */
+	protected $g_rbacadmin;
+
 	public function __construct(
 		\CaT\Plugins\AutomaticUserAdministration\Collections\UserCollection $user_collection,
 		array $roles
@@ -33,6 +43,51 @@ class SetUserRoles extends UserAction
 	 */
 	public function run()
 	{
+		global $rbacadmin, $rbacreview;
+		$this->g_rbacadmin = $rbacadmin;
+		$this->g_rbacreview = $rbacreview;
+
+		$user_assigned_to = $this->getUserGlobalRoles();
+
+		$new_roles = array_diff($this->roles, $user_assigned_to);
+		$deprecated_roles = array_diff($user_assigned_to, $this->roles);
+
+		$this->deassignRoles($deprecated_roles);
+		$this->assignRoles($new_roles);
+	}
+
+	/**
+	 * Get roles user is assigned to
+	 *
+	 * @return int[]
+	 */
+	protected function getUserGlobalRoles()
+	{
+		return $this->g_rbacreview->assignedGlobalRoles($this->user_id);
+	}
+
+	/**
+	 * Deassign user from roles
+	 *
+	 * @param int[]
+	 */
+	protected function deassignRoles(array $deprecated_roles)
+	{
+		foreach ($deprecated_roles as $role_id) {
+			$this->g_rbacadmin->deassignUser($role_id, $this->user_id);
+		}
+	}
+
+	/**
+	 * Assign user to roles
+	 *
+	 * @param int[]
+	 */
+	protected function assignRoles(array $new_roles)
+	{
+		foreach ($deprecated_roles as $role_id) {
+			$this->g_rbacadmin->assignUser($role_id, $this->user_id);
+		}
 	}
 
 	/**

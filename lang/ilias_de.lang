@@ -1,7 +1,7 @@
 title#:#Zeitlich gesteuerte Rollenzuweisung
 description#:#Benutzer werden zu einem bestimmten Zeitpunkt Rollen zugewiesen oder entzogen.
-open_actions#:#Geplante Aktionen
-closed_actions#:#Durchgeführte Aktionen
+open_executions#:#Geplante Aktionen
+closed_executions#:#Durchgeführte Aktionen
 scheduled#:#Datum / Uhrzeit
 inducement#:#Anlass
 login#:#Benutzername
@@ -18,7 +18,7 @@ user#:#Benutzer
 save#:#Speichern
 cancel#:#Abbrechen
 update#:#Aktualisieren
-confirm_delete_action#:#Sind Sie sich sicher, dass Sie diese Aktion entfernen wollen?
+confirm_delete_execution#:#Sind Sie sich sicher, dass Sie diese Aktion entfernen wollen?
 save_success#:#Die Aktion wurde erfolgreich hinzugefügt.
 update_success#:#Die Aktion wurde erfolgreich aktualisiert.
 delete_success#:#Die Aktion wurde erfolgreich entfernt.

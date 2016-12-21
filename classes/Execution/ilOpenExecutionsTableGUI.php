@@ -3,12 +3,12 @@
 namespace CaT\Plugins\AutomaticUserAdministration\Execution;
 
 require_once("Services/Table/classes/class.ilTable2GUI.php");
-require_once(__DIR__."/class.ilOpenExecutionGUI.php");
+require_once(__DIR__."/class.ilOpenExecutionsGUI.php");
 
 /**
  * Table gui to show all open actions
  */
-class ilOpenExecutionTableGUI extends \ilTable2GUI
+class ilOpenExecutionsTableGUI extends \ilTable2GUI
 {
 	/**
 	 * @var \ilOpenExecutionGUI
@@ -20,7 +20,7 @@ class ilOpenExecutionTableGUI extends \ilTable2GUI
 	 */
 	protected $plugin_object;
 
-	public function __construct(\ilOpenExecutionGUI $parent_object, \ilAutomaticUserAdministrationPlugin $plugin_object)
+	public function __construct(\ilOpenExecutionsGUI $parent_object, \ilAutomaticUserAdministrationPlugin $plugin_object)
 	{
 		parent::__construct($parent_object);
 

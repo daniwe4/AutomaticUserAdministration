@@ -89,7 +89,7 @@ class ilOpenExecutionsGUI
 	protected function view()
 	{
 		$this->setToolbar();
-		$table = new Open\ilOpenExecutionsTableGUI($this, $this->plugin_object);
+		$table = new Execution\ilOpenExecutionsTableGUI($this, $this->plugin_object);
 		$table->setData($this->actions->getOpenExecutions());
 		$this->gTpl->setContent($table->getHtml());
 	}

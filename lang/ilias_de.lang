@@ -18,10 +18,10 @@ user#:#Benutzer
 save#:#Speichern
 cancel#:#Abbrechen
 update#:#Aktualisieren
-confirm_delete_execution#:#Sind Sie sich sicher, dass Sie diese Aktion entfernen wollen?
+confirm_delete_action#:#Sind Sie sich sicher, dass Sie diese Aktion entfernen wollen?
 save_success#:#Die Aktion wurde erfolgreich hinzugefügt.
 update_success#:#Die Aktion wurde erfolgreich aktualisiert.
 delete_success#:#Die Aktion wurde erfolgreich entfernt.
 name#:#Name
 manage_executions#:#Rollenzuweisung
-set_roles_info#:#Achtung: der Benutzer wird genau die hier eingestellten Rollen erhalten. Seine aktuellen, hier nicht aktivierten, Rollen werden dabei entfernt.
+set_roles_info#:#Achtung: Der Benutzer wird genau die hier eingestellten Rollen erhalten. Seine aktuellen, hier nicht aktivierten, Rollen werden dabei entfernt.

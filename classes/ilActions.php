@@ -101,7 +101,7 @@ class ilActions
 		$user = new \ilObjUser($users[0]);
 
 		$scheduled = $execution->getScheduled()->get(IL_CAL_DATETIME);
-		$scheduled = implode(" ", $scheduled);
+		$scheduled = explode(" ", $scheduled);
 		$datetime["date"] = $scheduled[0];
 		$datetime["time"] = $scheduled[1];
 

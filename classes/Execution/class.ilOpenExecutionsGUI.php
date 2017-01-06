@@ -293,6 +293,7 @@ class ilOpenExecutionsGUI
 
 		$sh = new \ilFormSectionHeaderGUI();
 		$sh->setTitle($this->txt("roles"));
+		$sh->setInfo($this->txt('set_roles_info'));
 		$form->addItem($sh);
 
 		$global_roles = \gevRoleUtils::getInstance()->getGlobalRolesWithDesc();

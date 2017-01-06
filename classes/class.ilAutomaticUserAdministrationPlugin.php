@@ -26,7 +26,7 @@ class ilAutomaticUserAdministrationPlugin extends ilCronHookPlugin
 	 */
 	public function getPluginName()
 	{
-		return "Automatische Rollenzuweisung";
+		return "AutomaticUserAdministration";
 	}
 
 	/**

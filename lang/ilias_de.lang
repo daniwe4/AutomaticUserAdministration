@@ -24,3 +24,4 @@ update_success#:#Die Aktion wurde erfolgreich aktualisiert.
 delete_success#:#Die Aktion wurde erfolgreich entfernt.
 name#:#Name
 manage_executions#:#Rollenzuweisung
+set_roles_info#:#Achtung: der Benutzer wird genau die hier eingestellten Rollen erhalten. Seine aktuellen, hier nicht aktivierten, Rollen werden dabei entfernt.

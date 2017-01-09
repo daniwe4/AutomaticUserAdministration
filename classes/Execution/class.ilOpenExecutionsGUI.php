@@ -297,7 +297,9 @@ class ilOpenExecutionsGUI
 		$form->addItem($sh);
 
 		$global_roles = \gevRoleUtils::getInstance()->getGlobalRolesWithDesc();
-		$this->aasort($global_roles, 'title');
+		uasort($global_roles, function($x, $y) {
+			return strcasecmp($x['title'], $y['title']);
+		});
 		$cbxg = new \ilCheckboxGroupInputGUI("", ilActions::F_ROLES);
 		foreach ($global_roles as $key => $value) {
 			$option = new ilCheckboxOption($value["title"], $key, $value["description"]);
@@ -387,25 +389,5 @@ class ilOpenExecutionsGUI
 		if (isset($_POST["id"]) && $_POST["id"] !== null && $_POST["id"] != "") {
 			return $_POST["id"];
 		}
-	}
-
-	/**
-	 * Sort a multidimensional array on the basis of an specific field
-	 * @param array &$array multidimensional array
-	 * @param string $key
-	 * @return array
-	 */
-	private function aasort (&$array, $key) {
-		$sorter=array();
-		$ret=array();
-		reset($array);
-		foreach ($array as $ii => $va) {
-			$sorter[$ii]=strtolower($va[$key]);
-		}
-		asort($sorter);
-		foreach ($sorter as $ii => $va) {
-			$ret[$ii]=$array[$ii];
-		}
-		$array=$ret;
 	}
 }

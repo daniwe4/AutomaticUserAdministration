@@ -47,7 +47,7 @@ class ilClosedExecutionsTableGUI extends \ilTable2GUI
 		$role_names = $this->actions->getNameForRoles($roles);
 		$user = new \ilObjUser($users[0]);
 
-		$this->tpl->setVariable("SCHEDULED", $execution->getScheduled()->get(IL_CAL_FKT_DATE, "d.m.Y H:i:s"));
+		$this->tpl->setVariable("SCHEDULED", $execution->getRunDate()->get(IL_CAL_FKT_DATE, "d.m.Y H:i:s"));
 		$this->tpl->setVariable("INDUCEMENT", $execution->getInducement());
 		$this->tpl->setVariable("LOGIN", $user->getLogin());
 		$this->tpl->setVariable("FIRSTNAME", $user->getFirstname());
